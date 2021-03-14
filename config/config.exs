@@ -16,6 +16,7 @@ config :the_game, TheGameWeb.Endpoint,
   secret_key_base: "VyOjGq07EbMIq/zHQ3hQt5bmH7ZOF76rb4hv5NDyi+erKZzblITdxYlaodLsieuK",
   render_errors: [view: TheGameWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: TheGame.PubSub,
+  # TODO>>>: Will probably want to change this to an env var later.
   live_view: [signing_salt: "HiRW0mcS"]
 
 # Configures Elixir's Logger

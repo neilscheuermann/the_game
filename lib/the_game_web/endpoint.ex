@@ -7,6 +7,7 @@ defmodule TheGameWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_the_game_key",
+    # TODO>>>: Will probably want to change this to an env var later.
     signing_salt: "GQEiW6RD"
   ]
 
