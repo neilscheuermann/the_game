@@ -1,0 +1,18 @@
+<h2>Live Games</h2>
+
+<%= if Enum.empty?(@live_games) do %>
+  <p>There are NO live games</p>
+<% end %>
+
+<%= for game <- @live_games do %>
+  <h3>
+    <%= game.v_team.tricode %>
+    at
+    <%= game.h_team.tricode %>
+  </h3>
+  <p>
+    <%= game.clock %>, <%= game.period %> quarter - 
+    (+/-) <%= game.point_diff %>
+  </p>
+  <br>
+<% end %>

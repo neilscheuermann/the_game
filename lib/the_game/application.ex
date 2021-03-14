@@ -14,9 +14,11 @@ defmodule TheGame.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: TheGame.PubSub},
       # Start the Endpoint (http/https)
-      TheGameWeb.Endpoint
+      TheGameWeb.Endpoint,
       # Start a worker by calling: TheGame.Worker.start_link(arg)
       # {TheGame.Worker, arg}
+      # Start a GenServer to fetch NBA data every 15 seconds.
+      TheGame.Periodically
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
