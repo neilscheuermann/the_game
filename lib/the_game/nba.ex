@@ -18,48 +18,12 @@ defmodule TheGame.NBA do
   def find_live_close_games() do
     todays_date = get_current_date()
 
-    # 1. Get all today's games.
     {:ok, todays_games} = NBADataService.fetch_daily_games(todays_date)
 
-    # 2. Find live games
     live_games =
       todays_games
       |> Enum.filter(&is_live_game/1)
 
-    # 3. Get data for each game and send to client
-    # live_games =
-    #   live_games
-    #   |> Enum.map(fn game -> NBADataService.format_game_data(todays_date, game) end)
-    #   |> IO.inspect(label: "live games>>>")
-
-    # # MOCKED LIVE GAME RETURN
-    # live_games =
-    #   [
-    #     %{
-    #       clock: "00:00",
-    #       h_team: %{score: 104, tricode: "LAC"},
-    #       period: "3",
-    #       point_diff: 36,
-    #       v_team: %{score: 68, tricode: "GSW"}
-    #     },
-    #     %{
-    #       clock: "02:40",
-    #       h_team: %{score: 108, tricode: "POR"},
-    #       period: "4",
-    #       point_diff: 13,
-    #       v_team: %{score: 121, tricode: "PHX"}
-    #     },
-    #     %{
-    #       clock: "07:38",
-    #       h_team: %{score: 108, tricode: "SAC"},
-    #       period: "4",
-    #       point_diff: 17,
-    #       v_team: %{score: 91, tricode: "HOU"}
-    #     }
-    #   ]
-    #   |> IO.inspect(label: "mocked games>>>")
-
-    # 4. Push live_nailbiter data through Subs to client
     broadcast_change(:fifteen_second_update, live_games)
 
     live_games

@@ -47,46 +47,6 @@ defmodule TheGame.NBADataService do
     end
   end
 
-  def format_game_data(date, game) do
-    # 1. Fetch play-by-play data and get most recent play
-    {:ok, data} = NBADataService.fetch_game_play_by_play(date, game["gameId"])
-
-    most_recent_play =
-      data
-      |> Map.get("sports_content")
-      |> Map.get("game")
-      |> Map.get("play")
-      |> List.last()
-
-    # 2. Extract data into %LiveNailbiter{} struct
-    {home_score, _} = Integer.parse(Map.get(most_recent_play, "home_score"))
-    {visitor_score, _} = Integer.parse(Map.get(most_recent_play, "visitor_score"))
-
-    home_tricode =
-      game
-      |> Map.get("hTeam")
-      |> Map.get("triCode")
-
-    visitor_tricode =
-      game
-      |> Map.get("vTeam")
-      |> Map.get("triCode")
-
-    nailbiter = %{
-      point_diff: abs(home_score - visitor_score),
-      period: Map.get(most_recent_play, "period"),
-      clock: Map.get(most_recent_play, "clock"),
-      h_team: %{
-        score: home_score,
-        tricode: home_tricode
-      },
-      v_team: %{
-        score: visitor_score,
-        tricode: visitor_tricode
-      }
-    }
-  end
-
   defp extract_games(body) do
     body |> Jason.decode!() |> Map.get("games")
   end
