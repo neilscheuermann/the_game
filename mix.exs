@@ -48,7 +48,8 @@ defmodule TheGame.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:cowboy, "< 2.8.0", override: true},
-      {:httpoison, "~> 1.8"}
+      {:httpoison, "~> 1.8"},
+      {:timex, "~> 3.6"}
     ]
   end
 

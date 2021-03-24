@@ -10,30 +10,32 @@ defmodule TheGameWeb.TheGameLive do
       TheGame.NBA.subscribe()
     end
 
-    # live_games = TheGame.NBA.find_live_close_games()
-    live_games_intial_state = [
-      %{
-        clock: "02:40",
-        h_team: %{score: 108, tricode: "POR"},
-        period: "4",
-        point_diff: 13,
-        v_team: %{score: 121, tricode: "PHX"}
-      },
-      %{
-        clock: "07:38",
-        h_team: %{score: 108, tricode: "SAC"},
-        period: "4",
-        point_diff: 17,
-        v_team: %{score: 91, tricode: "HOU"}
-      }
-    ]
+    live_games =
+      TheGame.NBA.find_live_close_games()
+      |> IO.inspect(label: "live_games>>>")
 
-    {:ok, assign(socket, live_games: live_games_intial_state)}
+    # live_games_intial_state = [
+    #   %{
+    #     clock: "02:40",
+    #     h_team: %{score: 108, tricode: "POR"},
+    #     period: "4",
+    #     point_diff: 13,
+    #     v_team: %{score: 121, tricode: "PHX"}
+    #   },
+    #   %{
+    #     clock: "07:38",
+    #     h_team: %{score: 108, tricode: "SAC"},
+    #     period: "4",
+    #     point_diff: 17,
+    #     v_team: %{score: 91, tricode: "HOU"}
+    #   }
+    # ]
+
+    {:ok, assign(socket, live_games: live_games)}
+    # {:ok, assign(socket, live_games: live_games_intial_state)}
   end
 
   def handle_info({:fifteen_second_update, live_games}, socket) do
-    IO.inspect(live_games, label: "live_games>>>")
-    IO.inspect(socket, label: "socket>>>")
     {:noreply, assign(socket, live_games: live_games)}
   end
 
