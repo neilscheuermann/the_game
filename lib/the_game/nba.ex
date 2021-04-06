@@ -3,7 +3,10 @@ defmodule TheGame.NBA do
   TheGame.NBA keeps the context that finds and reports live games
   """
 
-  alias TheGame.NBADataService
+  alias TheGame.{
+    NBADataService,
+    DateService
+  }
 
   @topic inspect(__MODULE__)
 
@@ -15,36 +18,23 @@ defmodule TheGame.NBA do
     Phoenix.PubSub.broadcast(TheGame.PubSub, @topic, {event, data})
   end
 
-  def find_live_close_games() do
-    todays_date = get_current_date()
+  def find_and_broadcast_games() do
+    live_games = get_live_close_games()
+
+    broadcast_change(:fifteen_second_update, live_games)
+  end
+
+  def get_live_close_games() do
+    todays_date = DateService.get_current_date("America/Los_Angeles")
 
     {:ok, todays_games} = NBADataService.fetch_daily_games(todays_date)
 
-    live_games =
-      todays_games
-      |> Enum.filter(&is_live_game/1)
-
-    broadcast_change(:fifteen_second_update, live_games)
-
-    live_games
+    todays_games
+    |> IO.inspect(label: "today's games>>>")
+    |> Enum.filter(&is_live_game/1)
   end
 
   defp is_live_game(%{"isGameActivated" => true}), do: true
 
   defp is_live_game(_), do: false
-
-  defp get_current_date() do
-    {:ok, pacific_date_time} =
-      DateTime.utc_now()
-      |> DateTime.shift_zone("America/Los_Angeles")
-
-    get_formatted_date(pacific_date_time)
-  end
-
-  # Returns a formatted YYYYMMDD string
-  defp get_formatted_date(date) do
-    date
-    |> DateTime.to_iso8601(:basic)
-    |> String.slice(0..7)
-  end
 end

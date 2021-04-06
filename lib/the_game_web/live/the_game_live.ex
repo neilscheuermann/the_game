@@ -10,10 +10,9 @@ defmodule TheGameWeb.TheGameLive do
       TheGame.NBA.subscribe()
     end
 
-    live_games = TheGame.NBA.find_live_close_games()
+    live_games = TheGame.NBA.get_live_close_games()
 
     {:ok, assign(socket, live_games: live_games)}
-    # {:ok, assign(socket, live_games: live_games_intial_state)}
   end
 
   def handle_info({:fifteen_second_update, live_games}, socket) do
