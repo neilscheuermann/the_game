@@ -2,6 +2,7 @@ defmodule TheGameWeb.TheGameLive do
   use TheGameWeb, :live_view
 
   def mount(_params, _session, socket) do
+    # can maybe remove?
     TheGame.NBA.subscribe()
 
     if connected?(socket) do
@@ -10,13 +11,13 @@ defmodule TheGameWeb.TheGameLive do
       TheGame.NBA.subscribe()
     end
 
-    live_games = TheGame.NBA.get_live_close_games()
+    days_games = TheGame.NBA.get_days_games()
 
-    {:ok, assign(socket, live_games: live_games)}
+    {:ok, assign(socket, days_games: days_games)}
   end
 
-  def handle_info({:fifteen_second_update, live_games}, socket) do
-    {:noreply, assign(socket, live_games: live_games)}
+  def handle_info({:fifteen_second_update, days_games}, socket) do
+    {:noreply, assign(socket, days_games: days_games)}
   end
 
   def handle_info(_event, socket) do

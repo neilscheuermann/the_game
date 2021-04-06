@@ -4,8 +4,9 @@ defmodule TheGame.NBA do
   """
 
   alias TheGame.{
-    NBADataService,
-    DateService
+    DateService,
+    NBAGame,
+    NBADataService
   }
 
   @topic inspect(__MODULE__)
@@ -19,22 +20,20 @@ defmodule TheGame.NBA do
   end
 
   def find_and_broadcast_games() do
-    live_games = get_live_close_games()
+    days_games = get_days_games()
 
-    broadcast_change(:fifteen_second_update, live_games)
+    broadcast_change(:fifteen_second_update, days_games)
   end
 
-  def get_live_close_games() do
+  def get_days_games() do
     todays_date = DateService.get_current_date("America/Los_Angeles")
 
     {:ok, todays_games} = NBADataService.fetch_daily_games(todays_date)
 
-    todays_games
-    |> IO.inspect(label: "today's games>>>")
-    |> Enum.filter(&is_live_game/1)
+    format_games(todays_games)
   end
 
-  defp is_live_game(%{"isGameActivated" => true}), do: true
-
-  defp is_live_game(_), do: false
+  defp format_games(games) do
+    Enum.map(games, &NBAGame.format_game/1)
+  end
 end

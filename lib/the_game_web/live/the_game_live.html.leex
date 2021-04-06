@@ -1,18 +1,18 @@
 <section class="phx-hero">
-<h2>Live Games</h2>
-  <%= for game <- @live_games do %>
+<h2>Today's Games</h2>
+  <%= for game <- @days_games do %>
     <h3>
-      <%= Map.get(game, "vTeam") |> Map.get("triCode") %>
+      <%= game.v_team_tricode %>
       at
-      <%= Map.get(game, "hTeam") |> Map.get("triCode") %>
+      <%= game.h_team_tricode %>
     </h3>
     <p>
-      <%= Map.get(game, "clock") %>, <%= Map.get(game, "period") |> Map.get("current") %> quarter - 
-      (+/-) <%= Map.get(game, "point_diff") %>
+      <%= game.clock %>, <%= game.current_period %> quarter - 
+      (+/-) <%= game.point_diff %>
     </p>
     <br>
   <% end %>
-  <%= if Enum.empty?(@live_games) do %>
-    <p>There are NO live games</p>
+  <%= if Enum.empty?(@days_games) do %>
+    <p>There are NO games scheduled today</p>
   <% end %>
 </section>
