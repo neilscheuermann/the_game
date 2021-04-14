@@ -33,6 +33,9 @@ defmodule TheGame.NBAGame do
   end
 
   defp get_point_diff(score_a, score_b) do
-    abs(Integer.parse(score_a) - Integer.parse(score_b))
+    {score_a, _} = Integer.parse(score_a)
+    {score_b, _} = Integer.parse(score_b)
+
+    abs(score_a - score_b)
   end
 end
