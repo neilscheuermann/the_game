@@ -1,21 +1,46 @@
 <section class="phx-hero">
 <h2>Today's Games</h2>
   <%= for game <- @days_games do %>
-    <svg width="50" height="50">       
-      <image xlink:href="<%= game.v_team_logo_svg %>" width="50" height="50"/>    
-    </svg>   
-    <svg width="50" height="50">       
-      <image xlink:href="<%= game.h_team_logo_svg %>" width="50" height="50"/>    
-    </svg>   
-    <h3>
-      <%= game.v_team_tricode %>
-      at
-      <%= game.h_team_tricode %>
-    </h3>
-    <p>
-      <%= game.clock %>, <%= game.current_period %> quarter - 
-      (+/-) <%= game.point_diff %>
-    </p>
+    <div class="nba-game-tile">
+      <div class="team-info">
+        <div>
+          <svg width="40" height="40">       
+            <image xlink:href="<%= game.v_team_logo_svg %>" width="40" height="40"/>    
+          </svg>   
+          <p>
+            <%= game.v_team_tricode %>
+          </p>
+        </div>
+        <div>
+          @
+        </div>
+        <div>
+          <svg width="40" height="40">       
+            <image xlink:href="<%= game.h_team_logo_svg %>" width="40" height="40"/>    
+          </svg>   
+          <p>
+            <%= game.h_team_tricode %>
+          </p>
+        </div>
+      </div>
+      <div class="game-info">
+        <p>
+          <%= game.clock %> 
+        </p>
+        <p>
+          <%= game.current_period %> Q 
+        </p>
+        <%= if game.point_diff do %>
+          <p>
+            ± <%= game.point_diff %>
+          </p>
+          <%= else %>
+          <p>
+            ±0
+          </p>
+        <% end %>
+      </div>
+    </div>
     <br>
   <% end %>
   <%= if Enum.empty?(@days_games) do %>

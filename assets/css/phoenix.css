@@ -99,3 +99,33 @@ header nav a {
     margin: 2rem 1rem;
   }
 }
+
+
+/* MY CSS */
+
+p {
+  margin: 0;
+}
+.nba-game-tile {
+  border: solid black 1px;
+  border-radius: 5px;
+  display: flex;
+}
+
+.game-info {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+.game-info > * {
+  margin: 0 16px;
+}
+
+.team-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.team-info > div {
+  display: flex;
+}
