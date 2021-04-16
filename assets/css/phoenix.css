@@ -124,8 +124,14 @@ p {
 .team-info {
   display: flex;
   flex-direction: column;
-  align-items: center;
+}
+.team-info > :nth-child(2) {
+  padding-left: 22px;
 }
 .team-info > div {
   display: flex;
+  align-items: center;
+}
+.team-info > div > * {
+  margin: 0 8px;
 }
