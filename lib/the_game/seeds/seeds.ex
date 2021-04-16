@@ -152,7 +152,7 @@ defmodule TheGame.Seeds do
     }
   end
 
-  def current_game() do
+  def live_game() do
     %{
       "arena" => %{
         "city" => "Phoenix",
@@ -310,7 +310,7 @@ defmodule TheGame.Seeds do
     }
   end
 
-  def current_game_at_halftime() do
+  def live_game_at_halftime() do
     %{
       "arena" => %{
         "city" => "Los Angeles",

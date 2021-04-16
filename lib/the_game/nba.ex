@@ -11,6 +11,8 @@ defmodule TheGame.NBA do
 
   @topic inspect(__MODULE__)
 
+  @league_teams_data TheGame.NBADataService.fetch_team_data()
+
   def subscribe do
     Phoenix.PubSub.subscribe(TheGame.PubSub, @topic)
   end
@@ -62,6 +64,6 @@ defmodule TheGame.NBA do
   defp is_completed_game?(_), do: false
 
   defp format_games(games) do
-    Enum.map(games, &NBAGame.format_game/1)
+    Enum.map(games, fn game -> NBAGame.format_game(game, @league_teams_data) end)
   end
 end

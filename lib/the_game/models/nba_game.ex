@@ -9,6 +9,8 @@ defmodule TheGame.NBAGame do
     :h_team_loss,
     :h_team_score,
     :h_team_tricode,
+    :h_team_url_city,
+    :h_team_url_name,
     :h_team_win,
     :is_halftime,
     :point_diff,
@@ -17,18 +19,43 @@ defmodule TheGame.NBAGame do
     :v_team_loss,
     :v_team_score,
     :v_team_tricode,
+    :v_team_url_city,
+    :v_team_url_name,
     :v_team_win
   ]
 
-  def format_game(game) do
+  def format_game(game, league_teams_data) do
     h_team_score = Map.get(game, "hTeam") |> Map.get("score")
     h_team_team_id = Map.get(game, "hTeam") |> Map.get("teamId")
     h_team_logo_svg = get_team_logo_svg(h_team_team_id)
-    # h_team_conf_name = get_team_conf_name(h_team_team_id)
+
+    h_team_meta =
+      Enum.find(league_teams_data, fn %{"teamId" => team_id} -> team_id == h_team_team_id end)
+
+    h_team_url_name =
+      h_team_meta
+      |> Map.get("urlName")
+
+    h_team_url_city =
+      h_team_meta
+      |> Map.get("city")
+      |> lower_dash()
 
     v_team_score = Map.get(game, "vTeam") |> Map.get("score")
     v_team_team_id = Map.get(game, "vTeam") |> Map.get("teamId")
     v_team_logo_svg = get_team_logo_svg(v_team_team_id)
+
+    v_team_meta =
+      Enum.find(league_teams_data, fn %{"teamId" => team_id} -> team_id == v_team_team_id end)
+
+    v_team_url_name =
+      v_team_meta
+      |> Map.get("urlName")
+
+    v_team_url_city =
+      v_team_meta
+      |> Map.get("city")
+      |> lower_dash()
 
     point_diff = get_point_diff(v_team_score, h_team_score)
 
@@ -39,6 +66,8 @@ defmodule TheGame.NBAGame do
       h_team_loss: Map.get(game, "hTeam") |> Map.get("loss"),
       h_team_score: h_team_score,
       h_team_tricode: Map.get(game, "hTeam") |> Map.get("triCode"),
+      h_team_url_city: h_team_url_city,
+      h_team_url_name: h_team_url_name,
       h_team_win: Map.get(game, "hTeam") |> Map.get("win"),
       is_halftime: Map.get(game, "isHalftime"),
       point_diff: point_diff,
@@ -47,8 +76,17 @@ defmodule TheGame.NBAGame do
       v_team_loss: Map.get(game, "vTeam") |> Map.get("loss"),
       v_team_score: v_team_score,
       v_team_tricode: Map.get(game, "vTeam") |> Map.get("triCode"),
+      v_team_url_city: v_team_url_city,
+      v_team_url_name: v_team_url_name,
       v_team_win: Map.get(game, "vTeam") |> Map.get("win")
     }
+  end
+
+  defp lower_dash(string) do
+    string
+    |> String.split(" ")
+    |> Enum.join("-")
+    |> String.downcase()
   end
 
   defp get_team_logo_svg(team_id) do

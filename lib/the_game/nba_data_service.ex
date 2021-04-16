@@ -47,7 +47,24 @@ defmodule TheGame.NBADataService do
     end
   end
 
+  def fetch_team_data() do
+    case HTTPoison.get("http://data.nba.net/prod/v2/2020/teams.json") do
+      {:ok, %HTTPoison.Response{body: body, status_code: 200}} ->
+        extract_teams(body)
+
+      {:ok, %HTTPoison.Response{status_code: 404}} ->
+        {:error, :not_found}
+
+      {:ok, %HTTPoison.Error{reason: reason}} ->
+        {:error, reason}
+    end
+  end
+
   defp extract_games(body) do
     body |> Jason.decode!() |> Map.get("games")
+  end
+
+  defp extract_teams(body) do
+    body |> Jason.decode!() |> Map.get("league") |> Map.get("standard")
   end
 end
