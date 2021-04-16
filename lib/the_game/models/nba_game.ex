@@ -9,6 +9,7 @@ defmodule TheGame.NBAGame do
     :h_team_score,
     :h_team_tricode,
     :point_diff,
+    :start_time_eastern,
     :v_team_logo_svg,
     :v_team_score,
     :v_team_tricode
@@ -32,6 +33,7 @@ defmodule TheGame.NBAGame do
       h_team_score: h_team_score,
       h_team_tricode: Map.get(game, "hTeam") |> Map.get("triCode"),
       point_diff: point_diff,
+      start_time_eastern: Map.get(game, "startTimeEastern"),
       v_team_logo_svg: v_team_logo_svg,
       v_team_score: v_team_score,
       v_team_tricode: Map.get(game, "vTeam") |> Map.get("triCode")

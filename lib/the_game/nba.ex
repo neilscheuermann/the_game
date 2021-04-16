@@ -30,8 +30,36 @@ defmodule TheGame.NBA do
 
     {:ok, todays_games} = NBADataService.fetch_daily_games(todays_date)
 
-    format_games(todays_games)
+    live_games =
+      todays_games
+      |> Enum.filter(&is_live_game?/1)
+      |> format_games()
+
+    completed_games =
+      todays_games
+      |> Enum.filter(&is_completed_game?/1)
+      |> format_games()
+
+    upcoming_games =
+      todays_games
+      |> Enum.filter(&is_upcoming_game?/1)
+      |> format_games()
+
+    %{
+      live_games: live_games,
+      completed_games: completed_games,
+      upcoming_games: upcoming_games
+    }
   end
+
+  defp is_upcoming_game?(%{"statusNum" => 1}), do: true
+  defp is_upcoming_game?(_), do: false
+
+  defp is_live_game?(%{"statusNum" => 2}), do: true
+  defp is_live_game?(_), do: false
+
+  defp is_completed_game?(%{"statusNum" => 3}), do: true
+  defp is_completed_game?(_), do: false
 
   defp format_games(games) do
     Enum.map(games, &NBAGame.format_game/1)
