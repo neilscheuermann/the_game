@@ -5,6 +5,8 @@ defmodule TheGame.NBAGame do
   defstruct [
     :clock,
     :current_period,
+    :h_team_conf_initial,
+    :h_team_conf_rank,
     :h_team_logo_svg,
     :h_team_loss,
     :h_team_score,
@@ -15,6 +17,8 @@ defmodule TheGame.NBAGame do
     :is_halftime,
     :point_diff,
     :start_time_eastern,
+    :v_team_conf_initial,
+    :v_team_conf_rank,
     :v_team_logo_svg,
     :v_team_loss,
     :v_team_score,
@@ -24,17 +28,30 @@ defmodule TheGame.NBAGame do
     :v_team_win
   ]
 
-  def format_game(game, league_teams_data) do
+  def format_game(game, league_teams_data, league_standings_data) do
     h_team_score = Map.get(game, "hTeam") |> Map.get("score")
-    h_team_team_id = Map.get(game, "hTeam") |> Map.get("teamId")
-    h_team_logo_svg = get_team_logo_svg(h_team_team_id)
+    h_team_id = Map.get(game, "hTeam") |> Map.get("teamId")
+    h_team_logo_svg = get_team_logo_svg(h_team_id)
 
     h_team_meta =
-      Enum.find(league_teams_data, fn %{"teamId" => team_id} -> team_id == h_team_team_id end)
+      Enum.find(league_teams_data, fn %{"teamId" => team_id} -> team_id == h_team_id end)
+
+    h_team_standings_meta =
+      Enum.find(league_standings_data, fn %{"teamId" => team_id} -> team_id == h_team_id end)
+
+    h_team_conf_initial =
+      h_team_meta
+      |> Map.get("confName")
+      |> String.first()
+      |> String.downcase()
+
+    h_team_conf_rank =
+      h_team_standings_meta
+      |> Map.get("confRank")
 
     h_team_url_name =
       h_team_meta
-      |> Map.get("urlName")
+      |> Map.get("urlname")
 
     h_team_url_city =
       h_team_meta
@@ -42,11 +59,24 @@ defmodule TheGame.NBAGame do
       |> lower_dash()
 
     v_team_score = Map.get(game, "vTeam") |> Map.get("score")
-    v_team_team_id = Map.get(game, "vTeam") |> Map.get("teamId")
-    v_team_logo_svg = get_team_logo_svg(v_team_team_id)
+    v_team_id = Map.get(game, "vTeam") |> Map.get("teamId")
+    v_team_logo_svg = get_team_logo_svg(v_team_id)
 
     v_team_meta =
-      Enum.find(league_teams_data, fn %{"teamId" => team_id} -> team_id == v_team_team_id end)
+      Enum.find(league_teams_data, fn %{"teamId" => team_id} -> team_id == v_team_id end)
+
+    v_team_standings_meta =
+      Enum.find(league_standings_data, fn %{"teamId" => team_id} -> team_id == v_team_id end)
+
+    v_team_conf_initial =
+      v_team_meta
+      |> Map.get("confName")
+      |> String.first()
+      |> String.downcase()
+
+    v_team_conf_rank =
+      v_team_standings_meta
+      |> Map.get("confRank")
 
     v_team_url_name =
       v_team_meta
@@ -62,6 +92,8 @@ defmodule TheGame.NBAGame do
     %TheGame.NBAGame{
       clock: Map.get(game, "clock"),
       current_period: Map.get(game, "period") |> Map.get("current"),
+      h_team_conf_initial: h_team_conf_initial,
+      h_team_conf_rank: h_team_conf_rank,
       h_team_logo_svg: h_team_logo_svg,
       h_team_loss: Map.get(game, "hTeam") |> Map.get("loss"),
       h_team_score: h_team_score,
@@ -72,6 +104,8 @@ defmodule TheGame.NBAGame do
       is_halftime: Map.get(game, "isHalftime"),
       point_diff: point_diff,
       start_time_eastern: Map.get(game, "startTimeEastern"),
+      v_team_conf_initial: v_team_conf_initial,
+      v_team_conf_rank: v_team_conf_rank,
       v_team_logo_svg: v_team_logo_svg,
       v_team_loss: Map.get(game, "vTeam") |> Map.get("loss"),
       v_team_score: v_team_score,
