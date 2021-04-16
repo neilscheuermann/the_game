@@ -29,14 +29,20 @@
         <p>
           <%= game.clock %> 
         </p>
-        <p>
-          <%= game.current_period %> Q 
-        </p>
+        <%= if game.is_halftime do %>
+          <p>
+            Halftime
+          </p>
+        <%= else %>
+          <p>
+            <%= game.current_period %> Q 
+          </p>
+        <% end %>
         <%= if game.point_diff do %>
           <p>
             ± <%= game.point_diff %>
           </p>
-          <%= else %>
+        <%= else %>
           <p>
             ±0
           </p>

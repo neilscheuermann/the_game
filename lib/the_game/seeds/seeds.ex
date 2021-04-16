@@ -309,4 +309,159 @@ defmodule TheGame.Seeds do
       }
     }
   end
+
+  def current_game_at_halftime() do
+    %{
+      "arena" => %{
+        "city" => "Los Angeles",
+        "country" => "USA",
+        "isDomestic" => true,
+        "name" => "STAPLES Center",
+        "stateAbbr" => "CA"
+      },
+      "attendance" => "0",
+      "clock" => "",
+      "extendedStatusNum" => 0,
+      "gameDuration" => %{"hours" => "0", "minutes" => "57"},
+      "gameId" => "0022000842",
+      "gameUrlCode" => "20210415/BOSLAL",
+      "hTeam" => %{
+        "linescore" => [
+          %{"score" => "23"},
+          %{"score" => "25"},
+          %{"score" => "0"},
+          %{"score" => "0"}
+        ],
+        "loss" => "21",
+        "score" => "48",
+        "seriesLoss" => "1",
+        "seriesWin" => "1",
+        "teamId" => "1610612747",
+        "triCode" => "LAL",
+        "win" => "34"
+      },
+      "hasGameBookPdf" => false,
+      "homeStartDate" => "20210415",
+      "homeStartTime" => "1900",
+      "isBuzzerBeater" => false,
+      "isGameActivated" => true,
+      "isNeutralVenue" => false,
+      "isPreviewArticleAvail" => true,
+      "isRecapArticleAvail" => false,
+      "isStartTimeTBD" => false,
+      "leagueName" => "standard",
+      "nugget" => %{"text" => ""},
+      "period" => %{
+        "current" => 2,
+        "isEndOfPeriod" => true,
+        "isHalftime" => true,
+        "maxRegular" => 4,
+        "type" => 0
+      },
+      "seasonStageId" => 2,
+      "seasonYear" => "2020",
+      "startDateEastern" => "20210415",
+      "startTimeEastern" => "10:00 PM ET",
+      "startTimeUTC" => "2021-04-16T02:00:00.000Z",
+      "statusNum" => 2,
+      "tickets" => %{
+        "desktopWeb" => "https://a.data.nba.com/tickets/single/2020/0022000842/TEAM_SCH",
+        "leagGameInfo" => "https://a.data.nba.com/tickets/single/2020/0022000842/LEAG_GAMEINFO",
+        "leagTix" => "https://a.data.nba.com/tickets/single/2020/0022000842/LEAG_TIX",
+        "mobileApp" => "https://a.data.nba.com/tickets/single/2020/0022000842/APP_TIX",
+        "mobileWeb" => "https://a.data.nba.com/tickets/single/2020/0022000842/WEB_MWEB"
+      },
+      "vTeam" => %{
+        "linescore" => [
+          %{"score" => "31"},
+          %{"score" => "30"},
+          %{"score" => "0"},
+          %{"score" => "0"}
+        ],
+        "loss" => "26",
+        "score" => "61",
+        "seriesLoss" => "1",
+        "seriesWin" => "1",
+        "teamId" => "1610612738",
+        "triCode" => "BOS",
+        "win" => "29"
+      },
+      "visitorStartDate" => "20210415",
+      "visitorStartTime" => "2200",
+      "watch" => %{
+        "broadcast" => %{
+          "audio" => %{
+            "hTeam" => %{
+              "broadcasters" => [
+                %{
+                  "longName" => "ESPN LA 710/KWKW (S)",
+                  "shortName" => "ESPN LA 710/KWKW (S)"
+                }
+              ],
+              "streams" => [
+                %{"isOnAir" => false, "language" => "English", "streamId" => ""},
+                %{"isOnAir" => false, "language" => "Spanish", "streamId" => ""}
+              ]
+            },
+            "national" => %{
+              "broadcasters" => [],
+              "streams" => [
+                %{"isOnAir" => false, "language" => "English", "streamId" => ""},
+                %{"isOnAir" => false, "language" => "Spanish", "streamId" => ""}
+              ]
+            },
+            "vTeam" => %{
+              "broadcasters" => [
+                %{
+                  "longName" => "98.5 The Sports Hub",
+                  "shortName" => "98.5 The Sports Hub"
+                }
+              ],
+              "streams" => [
+                %{"isOnAir" => false, "language" => "English", "streamId" => ""},
+                %{"isOnAir" => false, "language" => "Spanish", "streamId" => ""}
+              ]
+            }
+          },
+          "broadcasters" => %{
+            "canadian" => [%{"longName" => "TSN", "shortName" => "TSN"}],
+            "hTeam" => [
+              %{"longName" => "Spectrum SportsNet", "shortName" => "SPECSN"}
+            ],
+            "national" => [%{"longName" => "TNT", "shortName" => "TNT"}],
+            "spanish_hTeam" => [],
+            "spanish_national" => [],
+            "spanish_vTeam" => [],
+            "vTeam" => [
+              %{"longName" => "NBC SPORTS BOSTON", "shortName" => "NBCSB"}
+            ]
+          },
+          "video" => %{
+            "canPurchase" => false,
+            "deepLink" => [
+              %{
+                "androidApp" => "https://tnt.app.link/7w91Bdy0NV",
+                "broadcaster" => "TNT",
+                "desktopWeb" => "https://tnt.app.link/7w91Bdy0NV",
+                "iosApp" => "https://tnt.app.link/7w91Bdy0NV",
+                "mobileWeb" => "https://tnt.app.link/7w91Bdy0NV",
+                "regionalMarketCodes" => ""
+              }
+            ],
+            "isLeaguePass" => true,
+            "isMagicLeap" => false,
+            "isNBAOnTNTVR" => false,
+            "isNationalBlackout" => true,
+            "isNextVR" => false,
+            "isOculusVenues" => false,
+            "isTNTOT" => true,
+            "isVR" => false,
+            "regionalBlackoutCodes" => "torr_lalr_bosr",
+            "streams" => [%{"doesArchiveExist" => false}],
+            "tntotIsOnAir" => false
+          }
+        }
+      }
+    }
+  end
 end
