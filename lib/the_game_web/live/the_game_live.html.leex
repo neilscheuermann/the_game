@@ -38,11 +38,9 @@
         </div>
       </div>
       <div class="game-info">
-        <button>
           <a href="https://www.streameast.live/basketball/<%= game.v_team_url_city %>-<%= game.v_team_url_name %>-<%= game.h_team_url_city %>-<%= game.h_team_url_name %>/" target="_blank">
-            StreamEast
+            watch
           </a>
-        </button>
         <p>
           <%= game.clock %> 
         </p>
@@ -56,7 +54,7 @@
           </p>
         <% end %>
         <%= if game.point_diff do %>
-          <p>
+          <p class="point-diff">
             ± <%= game.point_diff %>
           </p>
         <%= else %>
@@ -108,7 +106,7 @@
       <div class="game-info">
         Final
         <%= if game.point_diff do %>
-          <p>
+          <p class="point-diff">
             ± <%= game.point_diff %>
           </p>
           <%= else %>

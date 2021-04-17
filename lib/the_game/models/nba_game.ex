@@ -101,7 +101,7 @@ defmodule TheGame.NBAGame do
       h_team_url_city: h_team_url_city,
       h_team_url_name: h_team_url_name,
       h_team_win: Map.get(game, "hTeam") |> Map.get("win"),
-      is_halftime: Map.get(game, "isHalftime"),
+      is_halftime: Map.get(game, "period") |> Map.get("isHalftime"),
       point_diff: point_diff,
       start_time_eastern: Map.get(game, "startTimeEastern"),
       v_team_conf_initial: v_team_conf_initial,

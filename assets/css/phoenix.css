@@ -103,9 +103,6 @@ header nav a {
 
 /* MY CSS */
 
-a {
-  color: white;
-}
 p {
   margin: 0;
 }
@@ -139,19 +136,24 @@ p {
   margin: 0 8px;
 }
 
-@media (max-width: 575px) { /* Small devices (575px and down) */
-    button {
-        padding: 0 1.0rem;
+.point-diff {
+    font-weight: 600;
+}
+
+/* MOBILE STYLES */
+/* Small devices (575px and down) */
+@media (max-width: 575px) { 
+    .container{
+      padding: 0;
     }
-.nba-game-tile {
-  border: solid red 1px;
-  border-radius: 5px;
-  display: flex;
-}
-.game-info > * {
-  margin: 0 8px;
-}
-.team-info > div > * {
-  margin: 0 4px;
-}
+    .nba-game-tile {
+      border-radius: 5px;
+      display: flex;
+    }
+    .game-info > * {
+      margin: 0 8px;
+    }
+    .team-info > div > * {
+      margin: 0 4px;
+    }
 }
