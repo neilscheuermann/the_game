@@ -48,30 +48,29 @@
         </div>
       </div>
       <div class="game-info">
-          <a href="https://www.streameast.live/basketball/<%= game.v_team_url_city %>-<%= game.v_team_url_name %>-<%= game.h_team_url_city %>-<%= game.h_team_url_name %>/" target="_blank">
-            watch
-          </a>
-        <p>
-          <%= game.clock %> 
-        </p>
-        <%= if game.is_halftime do %>
-          <p>
-            Halftime
-          </p>
-        <%= else %>
-          <p>
-            <%= game.current_period %> Q 
-          </p>
-        <% end %>
-        <%= if game.point_diff do %>
-          <p class="point-diff">
-            ± <%= game.point_diff %>
-          </p>
-        <%= else %>
-          <p>
-            ±0
-          </p>
-        <% end %>
+        <a href="https://www.streameast.live/basketball/<%= game.v_team_url_city %>-<%= game.v_team_url_name %>-<%= game.h_team_url_city %>-<%= game.h_team_url_name %>/" target="_blank">
+          watch
+        </a>
+
+        <div class="time-period-point-diff">
+          <div>
+            <%= if game.is_end_of_period do %>
+            <p>End of</p>
+            <% else %>
+            <p><%= game.clock %></p>
+            <% end %>
+
+            <p>-</p>
+
+            <%= if game.is_halftime do %>
+            <p>Halftime</p>
+            <% else %>
+            <p><%= game.current_period %></p>
+            <% end %>
+          </div>
+
+          <p class="point-diff">± <%= game.point_diff %></p>
+        </div>
       </div>
     </div>
     <br>
@@ -124,16 +123,10 @@
         </div>
       </div>
       <div class="game-info">
-        Final
-        <%= if game.point_diff do %>
-          <p class="point-diff">
-            ± <%= game.point_diff %>
-          </p>
-          <%= else %>
-          <p>
-            ±0
-          </p>
-        <% end %>
+        <p>Final</p>
+        <p class="point-diff">
+          ± <%= game.point_diff %>
+        </p>
       </div>
     </div>
     <br>

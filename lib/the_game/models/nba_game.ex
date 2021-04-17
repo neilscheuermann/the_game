@@ -14,6 +14,7 @@ defmodule TheGame.NBAGame do
     :h_team_url_city,
     :h_team_url_name,
     :h_team_win,
+    :is_end_of_period,
     :is_halftime,
     :point_diff,
     :start_time_eastern,
@@ -23,7 +24,6 @@ defmodule TheGame.NBAGame do
     :v_team_loss,
     :v_team_nickname,
     :v_team_score,
-    :v_team_tricode,
     :v_team_url_city,
     :v_team_url_name,
     :v_team_win
@@ -106,6 +106,7 @@ defmodule TheGame.NBAGame do
       h_team_url_city: h_team_url_city,
       h_team_url_name: h_team_url_name,
       h_team_win: Map.get(game, "hTeam") |> Map.get("win"),
+      is_end_of_period: Map.get(game, "period") |> Map.get("isEndOfPeriod"),
       is_halftime: Map.get(game, "period") |> Map.get("isHalftime"),
       point_diff: point_diff,
       start_time_eastern: Map.get(game, "startTimeEastern"),
@@ -115,7 +116,6 @@ defmodule TheGame.NBAGame do
       v_team_loss: Map.get(game, "vTeam") |> Map.get("loss"),
       v_team_nickname: v_team_nickname,
       v_team_score: v_team_score,
-      v_team_tricode: Map.get(game, "vTeam") |> Map.get("triCode"),
       v_team_url_city: v_team_url_city,
       v_team_url_name: v_team_url_name,
       v_team_win: Map.get(game, "vTeam") |> Map.get("win")
