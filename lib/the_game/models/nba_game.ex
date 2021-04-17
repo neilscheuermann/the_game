@@ -5,22 +5,23 @@ defmodule TheGame.NBAGame do
   defstruct [
     :clock,
     :current_period,
-    :h_team_conf_initial,
+    :h_team_conf,
     :h_team_conf_rank,
     :h_team_logo_svg,
     :h_team_loss,
+    :h_team_nickname,
     :h_team_score,
-    :h_team_tricode,
     :h_team_url_city,
     :h_team_url_name,
     :h_team_win,
     :is_halftime,
     :point_diff,
     :start_time_eastern,
-    :v_team_conf_initial,
+    :v_team_conf,
     :v_team_conf_rank,
     :v_team_logo_svg,
     :v_team_loss,
+    :v_team_nickname,
     :v_team_score,
     :v_team_tricode,
     :v_team_url_city,
@@ -39,15 +40,17 @@ defmodule TheGame.NBAGame do
     h_team_standings_meta =
       Enum.find(league_standings_data, fn %{"teamId" => team_id} -> team_id == h_team_id end)
 
-    h_team_conf_initial =
+    h_team_conf =
       h_team_meta
       |> Map.get("confName")
-      |> String.first()
-      |> String.downcase()
 
     h_team_conf_rank =
       h_team_standings_meta
       |> Map.get("confRank")
+
+    h_team_nickname =
+      h_team_meta
+      |> Map.get("nickname")
 
     h_team_url_name =
       h_team_meta
@@ -68,15 +71,17 @@ defmodule TheGame.NBAGame do
     v_team_standings_meta =
       Enum.find(league_standings_data, fn %{"teamId" => team_id} -> team_id == v_team_id end)
 
-    v_team_conf_initial =
+    v_team_conf =
       v_team_meta
       |> Map.get("confName")
-      |> String.first()
-      |> String.downcase()
 
     v_team_conf_rank =
       v_team_standings_meta
       |> Map.get("confRank")
+
+    v_team_nickname =
+      v_team_meta
+      |> Map.get("nickname")
 
     v_team_url_name =
       v_team_meta
@@ -92,22 +97,23 @@ defmodule TheGame.NBAGame do
     %TheGame.NBAGame{
       clock: Map.get(game, "clock"),
       current_period: Map.get(game, "period") |> Map.get("current"),
-      h_team_conf_initial: h_team_conf_initial,
+      h_team_conf: h_team_conf,
       h_team_conf_rank: h_team_conf_rank,
       h_team_logo_svg: h_team_logo_svg,
       h_team_loss: Map.get(game, "hTeam") |> Map.get("loss"),
+      h_team_nickname: h_team_nickname,
       h_team_score: h_team_score,
-      h_team_tricode: Map.get(game, "hTeam") |> Map.get("triCode"),
       h_team_url_city: h_team_url_city,
       h_team_url_name: h_team_url_name,
       h_team_win: Map.get(game, "hTeam") |> Map.get("win"),
       is_halftime: Map.get(game, "period") |> Map.get("isHalftime"),
       point_diff: point_diff,
       start_time_eastern: Map.get(game, "startTimeEastern"),
-      v_team_conf_initial: v_team_conf_initial,
+      v_team_conf: v_team_conf,
       v_team_conf_rank: v_team_conf_rank,
       v_team_logo_svg: v_team_logo_svg,
       v_team_loss: Map.get(game, "vTeam") |> Map.get("loss"),
+      v_team_nickname: v_team_nickname,
       v_team_score: v_team_score,
       v_team_tricode: Map.get(game, "vTeam") |> Map.get("triCode"),
       v_team_url_city: v_team_url_city,

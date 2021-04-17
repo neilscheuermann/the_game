@@ -125,9 +125,6 @@ p {
   display: flex;
   flex-direction: column;
 }
-.team-info > :nth-child(2) {
-  padding-left: 22px;
-}
 .team-info > div {
   display: flex;
   align-items: center;
@@ -136,8 +133,26 @@ p {
   margin: 0 8px;
 }
 
+.team-name-rank-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.team-rank-wrapper {
+  display: flex;
+}
+.team-rank-wrapper > * {
+  margin-right: 8px;
+  font-size: 10px;
+}
+
 .point-diff {
     font-weight: 600;
+}
+
+.amp {
+  padding-left: 20px;
+  font-size: 10px;
 }
 
 /* MOBILE STYLES */
