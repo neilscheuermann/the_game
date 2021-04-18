@@ -122,7 +122,7 @@ p {
 }
 
 .game-link {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .time-period-point-diff {
@@ -134,8 +134,13 @@ p {
   margin: 8px;
 }
 
+.point-diff {
+  font-weight: 500;
+}
+
 .time-period {
   display: flex;
+  font-size: 14px;
 }
 .time-period > * {
   margin-left: 6px;
@@ -171,9 +176,6 @@ p {
 
 .bold {
   font-weight: bold;
-}
-.bold-light {
-  font-weight: 500;
 }
 .small-font {
   font-size: 10px;
