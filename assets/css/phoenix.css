@@ -134,9 +134,6 @@ p {
   margin: 8px;
 }
 
-.point-diff {
-  font-weight: 500;
-}
 
 .time-period {
   display: flex;
@@ -177,8 +174,16 @@ p {
 .bold {
   font-weight: bold;
 }
+
+.bold-light {
+  font-weight: 500;
+}
+
 .small-font {
   font-size: 10px;
+}
+.font-med {
+  font-size: 14px;
 }
 
 .amp {
