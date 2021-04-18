@@ -464,4 +464,152 @@ defmodule TheGame.Seeds do
       }
     }
   end
+
+  def live_game_end_of_period() do
+    %{
+      "arena" => %{
+        "city" => "Boston",
+        "country" => "USA",
+        "isDomestic" => true,
+        "name" => "TD Garden",
+        "stateAbbr" => "MA"
+      },
+      "attendance" => "2298",
+      "clock" => "",
+      "extendedStatusNum" => 0,
+      "gameDuration" => %{"hours" => "1", "minutes" => "41"},
+      "gameId" => "0022000858",
+      "gameUrlCode" => "20210417/GSWBOS",
+      "hTeam" => %{
+        "linescore" => [
+          %{"score" => "24"},
+          %{"score" => "36"},
+          %{"score" => "29"},
+          %{"score" => "0"}
+        ],
+        "loss" => "26",
+        "score" => "89",
+        "seriesLoss" => "1",
+        "seriesWin" => "1",
+        "teamId" => "1610612738",
+        "triCode" => "BOS",
+        "win" => "30"
+      },
+      "hasGameBookPdf" => false,
+      "homeStartDate" => "20210417",
+      "homeStartTime" => "2030",
+      "isBuzzerBeater" => false,
+      "isGameActivated" => true,
+      "isNeutralVenue" => false,
+      "isPreviewArticleAvail" => true,
+      "isRecapArticleAvail" => false,
+      "isStartTimeTBD" => false,
+      "leagueName" => "standard",
+      "nugget" => %{"text" => ""},
+      "period" => %{
+        "current" => 3,
+        "isEndOfPeriod" => true,
+        "isHalftime" => false,
+        "maxRegular" => 4,
+        "type" => 0
+      },
+      "seasonStageId" => 2,
+      "seasonYear" => "2020",
+      "startDateEastern" => "20210417",
+      "startTimeEastern" => "8:30 PM ET",
+      "startTimeUTC" => "2021-04-18T00:30:00.000Z",
+      "statusNum" => 2,
+      "tickets" => %{
+        "desktopWeb" => "https://a.data.nba.com/tickets/single/2020/0022000858/TEAM_SCH",
+        "leagGameInfo" => "https://a.data.nba.com/tickets/single/2020/0022000858/LEAG_GAMEINFO",
+        "leagTix" => "https://a.data.nba.com/tickets/single/2020/0022000858/LEAG_TIX",
+        "mobileApp" => "https://a.data.nba.com/tickets/single/2020/0022000858/APP_TIX",
+        "mobileWeb" => "https://a.data.nba.com/tickets/single/2020/0022000858/WEB_MWEB"
+      },
+      "vTeam" => %{
+        "linescore" => [
+          %{"score" => "33"},
+          %{"score" => "33"},
+          %{"score" => "23"},
+          %{"score" => "0"}
+        ],
+        "loss" => "28",
+        "score" => "89",
+        "seriesLoss" => "1",
+        "seriesWin" => "1",
+        "teamId" => "1610612744",
+        "triCode" => "GSW",
+        "win" => "28"
+      },
+      "visitorStartDate" => "20210417",
+      "visitorStartTime" => "1730",
+      "watch" => %{
+        "broadcast" => %{
+          "audio" => %{
+            "hTeam" => %{
+              "broadcasters" => [
+                %{
+                  "longName" => "98.5 The Sports Hub",
+                  "shortName" => "98.5 The Sports Hub"
+                }
+              ],
+              "streams" => [
+                %{"isOnAir" => false, "language" => "English", "streamId" => ""},
+                %{"isOnAir" => false, "language" => "Spanish", "streamId" => ""}
+              ]
+            },
+            "national" => %{
+              "broadcasters" => [],
+              "streams" => [
+                %{"isOnAir" => false, "language" => "English", "streamId" => ""},
+                %{"isOnAir" => false, "language" => "Spanish", "streamId" => ""}
+              ]
+            },
+            "vTeam" => %{
+              "broadcasters" => [
+                %{"longName" => "95.7 The Game", "shortName" => "95.7 The Game"}
+              ],
+              "streams" => [
+                %{"isOnAir" => false, "language" => "English", "streamId" => ""},
+                %{"isOnAir" => false, "language" => "Spanish", "streamId" => ""}
+              ]
+            }
+          },
+          "broadcasters" => %{
+            "canadian" => [%{"longName" => "Sportsnet", "shortName" => "SN"}],
+            "hTeam" => [],
+            "national" => [%{"longName" => "ABC", "shortName" => "ABC"}],
+            "spanish_hTeam" => [],
+            "spanish_national" => [],
+            "spanish_vTeam" => [],
+            "vTeam" => []
+          },
+          "video" => %{
+            "canPurchase" => false,
+            "deepLink" => [
+              %{
+                "androidApp" => "http://www.espn.com/watch?id=3755499",
+                "broadcaster" => "ABC",
+                "desktopWeb" => "http://www.espn.com/watch?id=3755499",
+                "iosApp" => "http://www.espn.com/watch?id=3755499",
+                "mobileWeb" => "http://www.espn.com/watch?id=3755499",
+                "regionalMarketCodes" => ""
+              }
+            ],
+            "isLeaguePass" => true,
+            "isMagicLeap" => false,
+            "isNBAOnTNTVR" => false,
+            "isNationalBlackout" => true,
+            "isNextVR" => false,
+            "isOculusVenues" => false,
+            "isTNTOT" => false,
+            "isVR" => false,
+            "regionalBlackoutCodes" => "torr",
+            "streams" => [%{"doesArchiveExist" => false}],
+            "tntotIsOnAir" => false
+          }
+        }
+      }
+    }
+  end
 end

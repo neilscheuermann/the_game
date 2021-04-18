@@ -95,7 +95,7 @@ defmodule TheGame.NBAGame do
     point_diff = get_point_diff(v_team_score, h_team_score)
 
     %TheGame.NBAGame{
-      clock: Map.get(game, "clock"),
+      clock: should_be_nil?(Map.get(game, "clock")),
       current_period: Map.get(game, "period") |> Map.get("current"),
       h_team_conf: h_team_conf,
       h_team_conf_rank: h_team_conf_rank,
@@ -120,6 +120,14 @@ defmodule TheGame.NBAGame do
       v_team_url_name: v_team_url_name,
       v_team_win: Map.get(game, "vTeam") |> Map.get("win")
     }
+  end
+
+  defp should_be_nil?(""), do: nil
+
+  defp should_be_nil?(val), do: val
+
+  defp nthify(num) do
+    # add for period and rank
   end
 
   defp lower_dash(string) do

@@ -6,7 +6,8 @@ defmodule TheGame.NBA do
   alias TheGame.{
     DateService,
     NBAGame,
-    NBADataService
+    NBADataService,
+    Seeds
   }
 
   @topic inspect(__MODULE__)
@@ -38,10 +39,6 @@ defmodule TheGame.NBA do
       |> Enum.filter(&is_live_game?/1)
       |> format_games()
 
-    # live_games =
-    #   [TheGame.Seeds.live_game()]
-    #   |> format_games()
-
     completed_games =
       todays_games
       |> Enum.filter(&is_completed_game?/1)
@@ -56,6 +53,13 @@ defmodule TheGame.NBA do
       live_games: live_games,
       completed_games: completed_games,
       upcoming_games: upcoming_games
+    }
+
+    # MOCKS
+    %{
+      live_games: [Seeds.live_game()] |> format_games(),
+      completed_games: [Seeds.live_game_end_of_period()] |> format_games(),
+      upcoming_games: [Seeds.completed_game()] |> format_games()
     }
   end
 
