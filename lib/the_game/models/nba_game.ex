@@ -56,6 +56,7 @@ defmodule TheGame.NBAGame do
     h_team_url_name =
       h_team_meta
       |> Map.get("urlname")
+      |> lower_dash()
 
     h_team_url_city =
       h_team_meta
@@ -88,6 +89,7 @@ defmodule TheGame.NBAGame do
     v_team_url_name =
       v_team_meta
       |> Map.get("urlName")
+      |> lower_dash()
 
     v_team_url_city =
       v_team_meta
