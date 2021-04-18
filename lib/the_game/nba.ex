@@ -55,12 +55,12 @@ defmodule TheGame.NBA do
       upcoming_games: upcoming_games
     }
 
-    # MOCKS
-    %{
-      live_games: [Seeds.live_game()] |> format_games(),
-      completed_games: [Seeds.live_game_end_of_period()] |> format_games(),
-      upcoming_games: [Seeds.completed_game()] |> format_games()
-    }
+    # # MOCKS
+    # %{
+    #   live_games: [Seeds.live_game()] |> format_games(),
+    #   completed_games: [Seeds.live_game_end_of_period()] |> format_games(),
+    #   upcoming_games: [Seeds.completed_game()] |> format_games()
+    # }
   end
 
   defp is_upcoming_game?(%{"statusNum" => 1}), do: true

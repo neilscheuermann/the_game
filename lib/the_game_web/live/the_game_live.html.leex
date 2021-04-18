@@ -48,13 +48,13 @@
         </div>
       </div>
       <div class="game-info">
-        <a href="https://www.streameast.live/basketball/<%= game.v_team_url_city %>-<%= game.v_team_url_name %>-<%= game.h_team_url_city %>-<%= game.h_team_url_name %>/" target="_blank">
+        <a class="game-link" href="https://www.streameast.live/basketball/<%= game.v_team_url_city %>-<%= game.v_team_url_name %>-<%= game.h_team_url_city %>-<%= game.h_team_url_name %>/" target="_blank">
           watch
         </a>
 
         <div class="time-period-point-diff">
-          <p class="bold-light">± <%= game.point_diff %></p>
-          <div>
+          <p><span class="bold-light">± <%= game.point_diff %> </span><span class="small-font">(point diff)</span></p>
+          <div class="time-period">
             <%= if game.is_end_of_period and !game.is_halftime do %>
             <p>End of</p>
             <% end %>

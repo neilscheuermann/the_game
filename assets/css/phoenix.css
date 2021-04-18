@@ -118,7 +118,11 @@ p {
   align-items: center;
 }
 .game-info > * {
-  margin: 0 16px;
+  margin-right: 8px;
+}
+
+.game-link {
+  font-size: 12px;
 }
 
 .time-period-point-diff {
@@ -126,12 +130,18 @@ p {
   flex-direction: column;
   align-items:center;
 }
-.time-period-point-diff > div {
-  display: flex;
+.time-period-point-diff > * {
   margin: 8px;
 }
-.time-period-point-diff > div > * {
-  margin-left: 8px;
+
+.time-period {
+  display: flex;
+}
+.time-period > * {
+  margin-left: 6px;
+}
+.time-period > :first-child {
+  margin-left: 0;
 }
 
 .team-info {
@@ -165,6 +175,9 @@ p {
 .bold-light {
   font-weight: 500;
 }
+.small-font {
+  font-size: 10px;
+}
 
 .amp {
   padding-left: 20px;
@@ -180,9 +193,6 @@ p {
     .nba-game-tile {
       border-radius: 5px;
       display: flex;
-    }
-    .game-info > * {
-      margin: 0 8px;
     }
     .team-info > div > * {
       margin: 0 4px;
