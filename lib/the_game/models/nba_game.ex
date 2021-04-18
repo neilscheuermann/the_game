@@ -4,7 +4,7 @@ defmodule TheGame.NBAGame do
   """
   defstruct [
     :clock,
-    :current_period,
+    :period,
     :h_team_conf,
     :h_team_conf_rank,
     :h_team_logo_svg,
@@ -47,6 +47,7 @@ defmodule TheGame.NBAGame do
     h_team_conf_rank =
       h_team_standings_meta
       |> Map.get("confRank")
+      |> nthify()
 
     h_team_nickname =
       h_team_meta
@@ -78,6 +79,7 @@ defmodule TheGame.NBAGame do
     v_team_conf_rank =
       v_team_standings_meta
       |> Map.get("confRank")
+      |> nthify()
 
     v_team_nickname =
       v_team_meta
@@ -96,7 +98,7 @@ defmodule TheGame.NBAGame do
 
     %TheGame.NBAGame{
       clock: should_be_nil?(Map.get(game, "clock")),
-      current_period: Map.get(game, "period") |> Map.get("current"),
+      period: Map.get(game, "period") |> Map.get("current") |> Integer.to_string() |> nthify(),
       h_team_conf: h_team_conf,
       h_team_conf_rank: h_team_conf_rank,
       h_team_logo_svg: h_team_logo_svg,
@@ -126,8 +128,13 @@ defmodule TheGame.NBAGame do
 
   defp should_be_nil?(val), do: val
 
-  defp nthify(num) do
-    # add for period and rank
+  def nthify(num) do
+    case num do
+      "1" -> num <> "st"
+      "2" -> num <> "nd"
+      "3" -> num <> "rd"
+      _ -> num <> "th"
+    end
   end
 
   defp lower_dash(string) do
