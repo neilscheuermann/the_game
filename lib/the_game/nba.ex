@@ -38,6 +38,10 @@ defmodule TheGame.NBA do
       |> Enum.filter(&is_live_game?/1)
       |> format_games()
 
+    # live_games =
+    #   [TheGame.Seeds.live_game()]
+    #   |> format_games()
+
     completed_games =
       todays_games
       |> Enum.filter(&is_completed_game?/1)

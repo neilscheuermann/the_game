@@ -10,7 +10,7 @@
             <image xlink:href="<%= game.v_team_logo_svg %>" width="40" height="40"/>    
           </svg>   
           <div class="team-name-rank-wrapper">
-            <p>
+            <p class="team-name">
               <%= game.v_team_nickname %>
             </p>
             <div class="team-rank-wrapper">
@@ -32,7 +32,7 @@
             <image xlink:href="<%= game.h_team_logo_svg %>" width="40" height="40"/>    
           </svg>   
           <div class="team-name-rank-wrapper">
-            <p>
+            <p class="team-name">
               <%= game.h_team_nickname %>
             </p>
             <div class="team-rank-wrapper">
@@ -69,7 +69,7 @@
             <% end %>
           </div>
 
-          <p class="point-diff">± <%= game.point_diff %></p>
+          <p class="bold-light">± <%= game.point_diff %></p>
         </div>
       </div>
     </div>
@@ -85,7 +85,7 @@
             <image xlink:href="<%= game.v_team_logo_svg %>" width="40" height="40"/>    
           </svg>   
           <div class="team-name-rank-wrapper">
-            <p>
+            <p class="team-name">
               <%= game.v_team_nickname %>
             </p>
             <div class="team-rank-wrapper">
@@ -107,7 +107,7 @@
             <image xlink:href="<%= game.h_team_logo_svg %>" width="40" height="40"/>    
           </svg>   
           <div class="team-name-rank-wrapper">
-            <p>
+            <p class="team-name">
               <%= game.h_team_nickname %>
             </p>
             <div class="team-rank-wrapper">
@@ -124,7 +124,7 @@
       </div>
       <div class="game-info">
         <p>Final</p>
-        <p class="point-diff">
+        <p class="bold-light">
           ± <%= game.point_diff %>
         </p>
       </div>
@@ -141,7 +141,7 @@
             <image xlink:href="<%= game.v_team_logo_svg %>" width="40" height="40"/>    
           </svg>   
           <div class="team-name-rank-wrapper">
-            <p>
+            <p class="team-name">
               <%= game.v_team_nickname %>
             </p>
             <div class="team-rank-wrapper">
@@ -163,7 +163,7 @@
             <image xlink:href="<%= game.h_team_logo_svg %>" width="40" height="40"/>    
           </svg>   
           <div class="team-name-rank-wrapper">
-            <p>
+            <p class="team-name">
               <%= game.h_team_nickname %>
             </p>
             <div class="team-rank-wrapper">

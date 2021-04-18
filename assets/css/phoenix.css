@@ -159,8 +159,11 @@ p {
   font-size: 10px;
 }
 
-.point-diff {
-    font-weight: 600;
+.bold {
+  font-weight: bold;
+}
+.bold-light {
+  font-weight: 500;
 }
 
 .amp {
@@ -183,5 +186,7 @@ p {
     }
     .team-info > div > * {
       margin: 0 4px;
+    }
+    .team-name {
     }
 }
