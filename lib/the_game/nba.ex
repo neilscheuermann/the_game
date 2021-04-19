@@ -6,8 +6,7 @@ defmodule TheGame.NBA do
   alias TheGame.{
     DateService,
     NBAGame,
-    NBADataService,
-    Seeds
+    NBADataService
   }
 
   @topic inspect(__MODULE__)
@@ -57,9 +56,9 @@ defmodule TheGame.NBA do
 
     # # MOCKS
     # %{
-    #   live_games: [Seeds.live_game()] |> format_games(),
-    #   completed_games: [Seeds.live_game_end_of_period()] |> format_games(),
-    #   upcoming_games: [Seeds.completed_game()] |> format_games()
+    #   live_games: [TheGame.Seeds.live_game()] |> format_games(),
+    #   completed_games: [TheGame.Seeds.live_game_end_of_period()] |> format_games(),
+    #   upcoming_games: [TheGame.Seeds.completed_game()] |> format_games()
     # }
   end
 

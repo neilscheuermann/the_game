@@ -120,6 +120,9 @@ p {
 .game-info > * {
   margin-right: 8px;
 }
+.start-time {
+  margin-right: 16px;
+}
 
 .game-link {
   font-size: 14px;
