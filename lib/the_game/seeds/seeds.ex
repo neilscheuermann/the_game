@@ -612,4 +612,427 @@ defmodule TheGame.Seeds do
       }
     }
   end
+
+  def live_game_overtime_double() do
+    %{
+      "arena" => %{
+        "city" => "Denver",
+        "country" => "USA",
+        "isDomestic" => true,
+        "name" => "Ball Arena",
+        "stateAbbr" => "CO"
+      },
+      "attendance" => "4005",
+      "clock" => "41.0",
+      "extendedStatusNum" => 0,
+      "gameDuration" => %{"hours" => "2", "minutes" => "43"},
+      "gameId" => "0022000874",
+      "gameUrlCode" => "20210419/MEMDEN",
+      "hTeam" => %{
+        "linescore" => [
+          %{"score" => "27"},
+          %{"score" => "29"},
+          %{"score" => "31"},
+          %{"score" => "29"},
+          %{"score" => "9"},
+          %{"score" => "12"}
+        ],
+        "loss" => "20",
+        "score" => "137",
+        "seriesLoss" => "1",
+        "seriesWin" => "1",
+        "teamId" => "1610612743",
+        "triCode" => "DEN",
+        "win" => "36"
+      },
+      "hasGameBookPdf" => false,
+      "homeStartDate" => "20210419",
+      "homeStartTime" => "1900",
+      "isBuzzerBeater" => false,
+      "isGameActivated" => true,
+      "isNeutralVenue" => false,
+      "isPreviewArticleAvail" => true,
+      "isRecapArticleAvail" => false,
+      "isStartTimeTBD" => false,
+      "leagueName" => "standard",
+      "nugget" => %{"text" => ""},
+      "period" => %{
+        "current" => 6,
+        "isEndOfPeriod" => false,
+        "isHalftime" => false,
+        "maxRegular" => 4,
+        "type" => 0
+      },
+      "seasonStageId" => 2,
+      "seasonYear" => "2020",
+      "startDateEastern" => "20210419",
+      "startTimeEastern" => "9:00 PM ET",
+      "startTimeUTC" => "2021-04-20T01:00:00.000Z",
+      "statusNum" => 2,
+      "tickets" => %{
+        "desktopWeb" => "https://a.data.nba.com/tickets/single/2020/0022000874/TEAM_SCH",
+        "leagGameInfo" => "https://a.data.nba.com/tickets/single/2020/0022000874/LEAG_GAMEINFO",
+        "leagTix" => "https://a.data.nba.com/tickets/single/2020/0022000874/LEAG_TIX",
+        "mobileApp" => "https://a.data.nba.com/tickets/single/2020/0022000874/APP_TIX",
+        "mobileWeb" => "https://a.data.nba.com/tickets/single/2020/0022000874/WEB_MWEB"
+      },
+      "vTeam" => %{
+        "linescore" => [
+          %{"score" => "35"},
+          %{"score" => "25"},
+          %{"score" => "35"},
+          %{"score" => "21"},
+          %{"score" => "9"},
+          %{"score" => "9"}
+        ],
+        "loss" => "26",
+        "score" => "134",
+        "seriesLoss" => "1",
+        "seriesWin" => "1",
+        "teamId" => "1610612763",
+        "triCode" => "MEM",
+        "win" => "29"
+      },
+      "visitorStartDate" => "20210419",
+      "visitorStartTime" => "2000",
+      "watch" => %{
+        "broadcast" => %{
+          "audio" => %{
+            "hTeam" => %{
+              "broadcasters" => [
+                %{"longName" => "KKSE 92.5FM", "shortName" => "KKSE 92.5FM"}
+              ],
+              "streams" => [
+                %{"isOnAir" => false, "language" => "English", "streamId" => ""},
+                %{"isOnAir" => false, "language" => "Spanish", "streamId" => ""}
+              ]
+            },
+            "national" => %{
+              "broadcasters" => [],
+              "streams" => [
+                %{"isOnAir" => false, "language" => "English", "streamId" => ""},
+                %{"isOnAir" => false, "language" => "Spanish", "streamId" => ""}
+              ]
+            },
+            "vTeam" => %{
+              "broadcasters" => [
+                %{
+                  "longName" => "ESPN 92.9FM/680AM",
+                  "shortName" => "ESPN 92.9FM/680AM"
+                }
+              ],
+              "streams" => [
+                %{"isOnAir" => false, "language" => "English", "streamId" => ""},
+                %{"isOnAir" => false, "language" => "Spanish", "streamId" => ""}
+              ]
+            }
+          },
+          "broadcasters" => %{
+            "canadian" => [],
+            "hTeam" => [%{"longName" => "Altitude", "shortName" => "ALT"}],
+            "national" => [],
+            "spanish_hTeam" => [],
+            "spanish_national" => [],
+            "spanish_vTeam" => [],
+            "vTeam" => [
+              %{
+                "longName" => "Bally Sports Southeast - Memphis",
+                "shortName" => "BSSE-MEM"
+              }
+            ]
+          },
+          "video" => %{
+            "canPurchase" => true,
+            "deepLink" => [],
+            "isLeaguePass" => true,
+            "isMagicLeap" => false,
+            "isNBAOnTNTVR" => false,
+            "isNationalBlackout" => false,
+            "isNextVR" => false,
+            "isOculusVenues" => false,
+            "isTNTOT" => false,
+            "isVR" => false,
+            "regionalBlackoutCodes" => "denr",
+            "streams" => [%{"doesArchiveExist" => false}],
+            "tntotIsOnAir" => false
+          }
+        }
+      }
+    }
+  end
+
+  def upcoming_game() do
+    %{
+      "arena" => %{
+        "city" => "Miami",
+        "country" => "USA",
+        "isDomestic" => true,
+        "name" => "AmericanAirlines Arena",
+        "stateAbbr" => "FL"
+      },
+      "attendance" => "",
+      "clock" => "",
+      "extendedStatusNum" => 0,
+      "gameDuration" => %{"hours" => "", "minutes" => ""},
+      "gameId" => "0022000871",
+      "gameUrlCode" => "20210419/HOUMIA",
+      "hTeam" => %{
+        "linescore" => [],
+        "loss" => "28",
+        "score" => "",
+        "seriesLoss" => "0",
+        "seriesWin" => "1",
+        "teamId" => "1610612748",
+        "triCode" => "MIA",
+        "win" => "29"
+      },
+      "hasGameBookPdf" => false,
+      "homeStartDate" => "20210419",
+      "homeStartTime" => "2000",
+      "isBuzzerBeater" => false,
+      "isGameActivated" => false,
+      "isNeutralVenue" => false,
+      "isPreviewArticleAvail" => true,
+      "isRecapArticleAvail" => false,
+      "isStartTimeTBD" => false,
+      "leagueName" => "standard",
+      "nugget" => %{"text" => ""},
+      "period" => %{
+        "current" => 0,
+        "isEndOfPeriod" => false,
+        "isHalftime" => false,
+        "maxRegular" => 4,
+        "type" => 0
+      },
+      "seasonStageId" => 2,
+      "seasonYear" => "2020",
+      "startDateEastern" => "20210419",
+      "startTimeEastern" => "8:00 PM ET",
+      "startTimeUTC" => "2021-04-20T00:00:00.000Z",
+      "statusNum" => 1,
+      "tickets" => %{
+        "desktopWeb" => "https://a.data.nba.com/tickets/single/2020/0022000871/TEAM_SCH",
+        "leagGameInfo" => "https://a.data.nba.com/tickets/single/2020/0022000871/LEAG_GAMEINFO",
+        "leagTix" => "https://a.data.nba.com/tickets/single/2020/0022000871/LEAG_TIX",
+        "mobileApp" => "https://a.data.nba.com/tickets/single/2020/0022000871/APP_TIX",
+        "mobileWeb" => "https://a.data.nba.com/tickets/single/2020/0022000871/WEB_MWEB"
+      },
+      "vTeam" => %{
+        "linescore" => [],
+        "loss" => "42",
+        "score" => "",
+        "seriesLoss" => "1",
+        "seriesWin" => "0",
+        "teamId" => "1610612745",
+        "triCode" => "HOU",
+        "win" => "15"
+      },
+      "visitorStartDate" => "20210419",
+      "visitorStartTime" => "1900",
+      "watch" => %{
+        "broadcast" => %{
+          "audio" => %{
+            "hTeam" => %{
+              "broadcasters" => [
+                %{
+                  "longName" => "WAXY 790 / WAQI 710",
+                  "shortName" => "WAXY 790 / WAQI 710"
+                }
+              ],
+              "streams" => [
+                %{"isOnAir" => false, "language" => "English", "streamId" => ""},
+                %{"isOnAir" => false, "language" => "Spanish", "streamId" => ""}
+              ]
+            },
+            "national" => %{
+              "broadcasters" => [],
+              "streams" => [
+                %{"isOnAir" => false, "language" => "English", "streamId" => ""},
+                %{"isOnAir" => false, "language" => "Spanish", "streamId" => ""}
+              ]
+            },
+            "vTeam" => %{
+              "broadcasters" => [
+                %{
+                  "longName" => "KBME/KTRH/S: KLAT",
+                  "shortName" => "KBME/KTRH/S: KLAT"
+                }
+              ],
+              "streams" => [
+                %{"isOnAir" => false, "language" => "English", "streamId" => ""},
+                %{"isOnAir" => false, "language" => "Spanish", "streamId" => ""}
+              ]
+            }
+          },
+          "broadcasters" => %{
+            "canadian" => [],
+            "hTeam" => [
+              %{"longName" => "Bally Sports Sun", "shortName" => "BSSUN"}
+            ],
+            "national" => [],
+            "spanish_hTeam" => [],
+            "spanish_national" => [],
+            "spanish_vTeam" => [],
+            "vTeam" => [
+              %{
+                "longName" => "AT&T Sportsnet - Southwest",
+                "shortName" => "ATTSN-SW"
+              }
+            ]
+          },
+          "video" => %{
+            "canPurchase" => true,
+            "deepLink" => [],
+            "isLeaguePass" => true,
+            "isMagicLeap" => false,
+            "isNBAOnTNTVR" => false,
+            "isNationalBlackout" => false,
+            "isNextVR" => false,
+            "isOculusVenues" => false,
+            "isTNTOT" => false,
+            "isVR" => false
+          }
+        }
+      }
+    }
+  end
+
+  def upcoming_game_on_espn() do
+    %{
+      "arena" => %{
+        "city" => "Philadelphia",
+        "country" => "USA",
+        "isDomestic" => true,
+        "name" => "Wells Fargo Center",
+        "stateAbbr" => "PA"
+      },
+      "attendance" => "",
+      "clock" => "",
+      "extendedStatusNum" => 0,
+      "gameDuration" => %{"hours" => "", "minutes" => ""},
+      "gameId" => "0022000870",
+      "gameUrlCode" => "20210419/GSWPHI",
+      "hTeam" => %{
+        "linescore" => [],
+        "loss" => "17",
+        "score" => "",
+        "seriesLoss" => "0",
+        "seriesWin" => "1",
+        "teamId" => "1610612755",
+        "triCode" => "PHI",
+        "win" => "39"
+      },
+      "hasGameBookPdf" => false,
+      "homeStartDate" => "20210419",
+      "homeStartTime" => "1930",
+      "isBuzzerBeater" => false,
+      "isGameActivated" => false,
+      "isNeutralVenue" => false,
+      "isPreviewArticleAvail" => true,
+      "isRecapArticleAvail" => false,
+      "isStartTimeTBD" => false,
+      "leagueName" => "standard",
+      "nugget" => %{"text" => ""},
+      "period" => %{
+        "current" => 0,
+        "isEndOfPeriod" => false,
+        "isHalftime" => false,
+        "maxRegular" => 4,
+        "type" => 0
+      },
+      "seasonStageId" => 2,
+      "seasonYear" => "2020",
+      "startDateEastern" => "20210419",
+      "startTimeEastern" => "7:30 PM ET",
+      "startTimeUTC" => "2021-04-19T23:30:00.000Z",
+      "statusNum" => 1,
+      "tickets" => %{
+        "desktopWeb" => "https://a.data.nba.com/tickets/single/2020/0022000870/TEAM_SCH",
+        "leagGameInfo" => "https://a.data.nba.com/tickets/single/2020/0022000870/LEAG_GAMEINFO",
+        "leagTix" => "https://a.data.nba.com/tickets/single/2020/0022000870/LEAG_TIX",
+        "mobileApp" => "https://a.data.nba.com/tickets/single/2020/0022000870/APP_TIX",
+        "mobileWeb" => "https://a.data.nba.com/tickets/single/2020/0022000870/WEB_MWEB"
+      },
+      "vTeam" => %{
+        "linescore" => [],
+        "loss" => "29",
+        "score" => "",
+        "seriesLoss" => "1",
+        "seriesWin" => "0",
+        "teamId" => "1610612744",
+        "triCode" => "GSW",
+        "win" => "28"
+      },
+      "visitorStartDate" => "20210419",
+      "visitorStartTime" => "1630",
+      "watch" => %{
+        "broadcast" => %{
+          "audio" => %{
+            "hTeam" => %{
+              "broadcasters" => [
+                %{
+                  "longName" => "97.5 The Fanatic",
+                  "shortName" => "97.5 The Fanatic"
+                }
+              ],
+              "streams" => [
+                %{"isOnAir" => false, "language" => "English", "streamId" => ""},
+                %{"isOnAir" => false, "language" => "Spanish", "streamId" => ""}
+              ]
+            },
+            "national" => %{
+              "broadcasters" => [],
+              "streams" => [
+                %{"isOnAir" => false, "language" => "English", "streamId" => ""},
+                %{"isOnAir" => false, "language" => "Spanish", "streamId" => ""}
+              ]
+            },
+            "vTeam" => %{
+              "broadcasters" => [
+                %{"longName" => "95.7 The Game", "shortName" => "95.7 The Game"}
+              ],
+              "streams" => [
+                %{"isOnAir" => false, "language" => "English", "streamId" => ""},
+                %{"isOnAir" => false, "language" => "Spanish", "streamId" => ""}
+              ]
+            }
+          },
+          "broadcasters" => %{
+            "canadian" => [%{"longName" => "Sportsnet", "shortName" => "SN"}],
+            "hTeam" => [],
+            "national" => [%{"longName" => "ESPN", "shortName" => "ESPN"}],
+            "spanish_hTeam" => [],
+            "spanish_national" => [],
+            "spanish_vTeam" => [],
+            "vTeam" => [
+              %{"longName" => "NBC Sports  Bay Area", "shortName" => "NBCSBA"}
+            ]
+          },
+          "video" => %{
+            "canPurchase" => false,
+            "deepLink" => [
+              %{
+                "androidApp" => "http://www.espn.com/watch?id=3753341",
+                "broadcaster" => "ESPN",
+                "desktopWeb" => "http://www.espn.com/watch?id=3753341",
+                "iosApp" => "http://www.espn.com/watch?id=3753341",
+                "mobileWeb" => "http://www.espn.com/watch?id=3753341",
+                "regionalMarketCodes" => ""
+              }
+            ],
+            "isLeaguePass" => true,
+            "isMagicLeap" => false,
+            "isNBAOnTNTVR" => false,
+            "isNationalBlackout" => true,
+            "isNextVR" => false,
+            "isOculusVenues" => false,
+            "isTNTOT" => false,
+            "isVR" => false,
+            "regionalBlackoutCodes" => "torr_gswr",
+            "streams" => []
+          }
+        }
+      }
+    }
+  end
 end

@@ -53,9 +53,17 @@ defmodule TheGame.NBA do
 
     # # MOCKS
     # %{
-    #   live_games: [TheGame.Seeds.live_game()] |> format_games(),
-    #   completed_games: [TheGame.Seeds.live_game_end_of_period()] |> format_games(),
-    #   upcoming_games: [TheGame.Seeds.completed_game()] |> format_games()
+    #   live_games:
+    #     [
+    #       TheGame.Seeds.live_game(),
+    #       TheGame.Seeds.live_game_end_of_period(),
+    #       TheGame.Seeds.live_game_at_halftime(),
+    #       TheGame.Seeds.live_game_overtime_double()
+    #     ]
+    #     |> format_games(),
+    #   completed_games: [TheGame.Seeds.completed_game()] |> format_games(),
+    #   upcoming_games:
+    #     [TheGame.Seeds.upcoming_game(), TheGame.Seeds.upcoming_game_on_espn()] |> format_games()
     # }
   end
 
