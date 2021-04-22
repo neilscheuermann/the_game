@@ -1178,4 +1178,143 @@ defmodule TheGame.Seeds do
       }
     }
   end
+
+  def upcoming_game_on_tnt() do
+    %{
+      "arena" => %{
+        "city" => "Dallas",
+        "country" => "USA",
+        "isDomestic" => true,
+        "name" => "American Airlines Center",
+        "stateAbbr" => "TX"
+      },
+      "attendance" => "",
+      "clock" => "",
+      "extendedStatusNum" => 0,
+      "gameDuration" => %{"hours" => "", "minutes" => ""},
+      "gameId" => "0022000897",
+      "gameUrlCode" => "20210422/LALDAL",
+      "hTeam" => %{
+        "linescore" => [],
+        "loss" => "26",
+        "score" => "",
+        "seriesLoss" => "1",
+        "seriesWin" => "0",
+        "teamId" => "1610612742",
+        "triCode" => "DAL",
+        "win" => "31"
+      },
+      "hasGameBookPdf" => false,
+      "homeStartDate" => "20210422",
+      "homeStartTime" => "2030",
+      "isBuzzerBeater" => false,
+      "isGameActivated" => false,
+      "isNeutralVenue" => false,
+      "isPreviewArticleAvail" => true,
+      "isRecapArticleAvail" => false,
+      "isStartTimeTBD" => false,
+      "leagueName" => "standard",
+      "nugget" => %{"text" => ""},
+      "period" => %{
+        "current" => 0,
+        "isEndOfPeriod" => false,
+        "isHalftime" => false,
+        "maxRegular" => 4,
+        "type" => 0
+      },
+      "seasonStageId" => 2,
+      "seasonYear" => "2020",
+      "startDateEastern" => "20210422",
+      "startTimeEastern" => "9:30 PM ET",
+      "startTimeUTC" => "2021-04-23T01:30:00.000Z",
+      "statusNum" => 1,
+      "tickets" => %{
+        "desktopWeb" => "https://a.data.nba.com/tickets/single/2020/0022000897/TEAM_SCH",
+        "leagGameInfo" => "https://a.data.nba.com/tickets/single/2020/0022000897/LEAG_GAMEINFO",
+        "leagTix" => "https://a.data.nba.com/tickets/single/2020/0022000897/LEAG_TIX",
+        "mobileApp" => "https://a.data.nba.com/tickets/single/2020/0022000897/APP_TIX",
+        "mobileWeb" => "https://a.data.nba.com/tickets/single/2020/0022000897/WEB_MWEB"
+      },
+      "vTeam" => %{
+        "linescore" => [],
+        "loss" => "23",
+        "score" => "",
+        "seriesLoss" => "0",
+        "seriesWin" => "1",
+        "teamId" => "1610612747",
+        "triCode" => "LAL",
+        "win" => "35"
+      },
+      "visitorStartDate" => "20210422",
+      "visitorStartTime" => "1830",
+      "watch" => %{
+        "broadcast" => %{
+          "audio" => %{
+            "hTeam" => %{
+              "broadcasters" => [
+                %{
+                  "longName" => "ESPN 103.3 FM / 1270 AM (ESP)",
+                  "shortName" => "ESPN 103.3 FM / 1270 AM (ESP)"
+                }
+              ],
+              "streams" => [
+                %{"isOnAir" => false, "language" => "English", "streamId" => ""},
+                %{"isOnAir" => false, "language" => "Spanish", "streamId" => ""}
+              ]
+            },
+            "national" => %{
+              "broadcasters" => [],
+              "streams" => [
+                %{"isOnAir" => false, "language" => "English", "streamId" => ""},
+                %{"isOnAir" => false, "language" => "Spanish", "streamId" => ""}
+              ]
+            },
+            "vTeam" => %{
+              "broadcasters" => [
+                %{
+                  "longName" => "ESPN LA 710/KWKW (S)",
+                  "shortName" => "ESPN LA 710/KWKW (S)"
+                }
+              ],
+              "streams" => [
+                %{"isOnAir" => false, "language" => "English", "streamId" => ""},
+                %{"isOnAir" => false, "language" => "Spanish", "streamId" => ""}
+              ]
+            }
+          },
+          "broadcasters" => %{
+            "canadian" => [%{"longName" => "TSN", "shortName" => "TSN"}],
+            "hTeam" => [],
+            "national" => [%{"longName" => "TNT", "shortName" => "TNT"}],
+            "spanish_hTeam" => [],
+            "spanish_national" => [],
+            "spanish_vTeam" => [],
+            "vTeam" => [
+              %{"longName" => "Spectrum SportsNet", "shortName" => "SPECSN"}
+            ]
+          },
+          "video" => %{
+            "canPurchase" => false,
+            "deepLink" => [
+              %{
+                "androidApp" => "https://tnt.app.link/7w91Bdy0NV",
+                "broadcaster" => "TNT",
+                "desktopWeb" => "https://tnt.app.link/7w91Bdy0NV",
+                "iosApp" => "https://tnt.app.link/7w91Bdy0NV",
+                "mobileWeb" => "https://tnt.app.link/7w91Bdy0NV",
+                "regionalMarketCodes" => ""
+              }
+            ],
+            "isLeaguePass" => true,
+            "isMagicLeap" => false,
+            "isNBAOnTNTVR" => false,
+            "isNationalBlackout" => true,
+            "isNextVR" => false,
+            "isOculusVenues" => false,
+            "isTNTOT" => true
+          }
+        }
+      }
+    }
+  end
 end
