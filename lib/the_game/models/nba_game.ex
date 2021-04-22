@@ -11,8 +11,7 @@ defmodule TheGame.NBAGame do
     :h_team_loss,
     :h_team_nickname,
     :h_team_score,
-    :h_team_url_city,
-    :h_team_url_name,
+    :h_team_url_city_and_name,
     :h_team_win,
     :is_end_of_period,
     :is_halftime,
@@ -24,8 +23,7 @@ defmodule TheGame.NBAGame do
     :v_team_loss,
     :v_team_nickname,
     :v_team_score,
-    :v_team_url_city,
-    :v_team_url_name,
+    :v_team_url_city_and_name,
     :v_team_win
   ]
 
@@ -53,15 +51,11 @@ defmodule TheGame.NBAGame do
       h_team_meta
       |> Map.get("nickname")
 
-    h_team_url_name =
+    h_team_url_city_and_name =
       h_team_meta
-      |> Map.get("urlName")
+      |> Map.get("fullName")
       |> lower_dash()
-
-    h_team_url_city =
-      h_team_meta
-      |> Map.get("city")
-      |> lower_dash()
+      |> IO.inspect(label: "h_team_url_city_and_name>>>")
 
     v_team_score = Map.get(game, "vTeam") |> Map.get("score")
     v_team_id = Map.get(game, "vTeam") |> Map.get("teamId")
@@ -86,15 +80,11 @@ defmodule TheGame.NBAGame do
       v_team_meta
       |> Map.get("nickname")
 
-    v_team_url_name =
+    v_team_url_city_and_name =
       v_team_meta
-      |> Map.get("urlName")
+      |> Map.get("fullName")
       |> lower_dash()
-
-    v_team_url_city =
-      v_team_meta
-      |> Map.get("city")
-      |> lower_dash()
+      |> IO.inspect(label: "v_team_url_city_and_name>>>")
 
     point_diff = get_point_diff(v_team_score, h_team_score)
 
@@ -107,8 +97,7 @@ defmodule TheGame.NBAGame do
       h_team_loss: Map.get(game, "hTeam") |> Map.get("loss"),
       h_team_nickname: h_team_nickname,
       h_team_score: h_team_score,
-      h_team_url_city: h_team_url_city,
-      h_team_url_name: h_team_url_name,
+      h_team_url_city_and_name: h_team_url_city_and_name,
       h_team_win: Map.get(game, "hTeam") |> Map.get("win"),
       is_end_of_period: Map.get(game, "period") |> Map.get("isEndOfPeriod"),
       is_halftime: Map.get(game, "period") |> Map.get("isHalftime"),
@@ -120,8 +109,7 @@ defmodule TheGame.NBAGame do
       v_team_loss: Map.get(game, "vTeam") |> Map.get("loss"),
       v_team_nickname: v_team_nickname,
       v_team_score: v_team_score,
-      v_team_url_city: v_team_url_city,
-      v_team_url_name: v_team_url_name,
+      v_team_url_city_and_name: v_team_url_city_and_name,
       v_team_win: Map.get(game, "vTeam") |> Map.get("win")
     }
   end
@@ -139,13 +127,6 @@ defmodule TheGame.NBAGame do
     end
   end
 
-  defp lower_dash(string) do
-    string
-    |> String.split(" ")
-    |> Enum.join("-")
-    |> String.downcase()
-  end
-
   defp get_team_logo_svg(team_id) do
     "https://cdn.nba.com/logos/nba/#{team_id}/primary/L/logo.svg"
   end
@@ -159,5 +140,12 @@ defmodule TheGame.NBAGame do
     {score_b, _} = Integer.parse(score_b)
 
     abs(score_a - score_b)
+  end
+
+  defp lower_dash(string) do
+    string
+    |> String.split(" ")
+    |> Enum.join("-")
+    |> String.downcase()
   end
 end
