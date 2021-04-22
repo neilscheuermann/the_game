@@ -48,12 +48,12 @@
         </div>
       </div>
       <div class="game-info">
-        <a class="game-link" href="https://www.streameast.live/basketball/<%= game.v_team_url_city_and_name %>-<%= game.h_team_url_city_and_name %>/" target="_blank">
+        <a class="font-med" href="https://www.streameast.live/basketball/<%= game.v_team_url_city_and_name %>-<%= game.h_team_url_city_and_name %>/" target="_blank">
           watch
         </a>
 
         <div class="time-period-point-diff">
-          <p><span class="bold-light">± <%= game.point_diff %> </span><span class="small-font">(point diff)</span></p>
+          <p><span class="bold-light">± <%= game.point_diff %> </span><span class="font-small">(point diff)</span></p>
           <div class="time-period">
             <%= if game.is_end_of_period and !game.is_halftime do %>
             <p>End of</p>
@@ -124,8 +124,12 @@
         </div>
       </div>
       <div class="game-info">
+        <a class="font-small" href="https://www.youtube.com/results?search_query=<%= game.v_team_nickname %>+at+<%= game.h_team_nickname %>+<%= game.start_date_eastern %>" target="_blank">
+          recap
+        </a>
+
         <div class="time-period-point-diff">
-          <p><span class="bold-light">🔥🥱 </span><span class="small-font">(1-8 pt diff)</span></p>
+          <p><span><%= game.excitement_level%></span></p>
           <p class="font-med">Final</p>
         </div>
       </div>

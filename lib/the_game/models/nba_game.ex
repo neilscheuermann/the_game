@@ -4,7 +4,7 @@ defmodule TheGame.NBAGame do
   """
   defstruct [
     :clock,
-    :period,
+    :excitement_level,
     :h_team_conf,
     :h_team_conf_rank,
     :h_team_logo_svg,
@@ -15,8 +15,10 @@ defmodule TheGame.NBAGame do
     :h_team_win,
     :is_end_of_period,
     :is_halftime,
+    :period,
     :point_diff,
     :start_time_eastern,
+    :start_date_eastern,
     :v_team_conf,
     :v_team_conf_rank,
     :v_team_logo_svg,
@@ -86,9 +88,11 @@ defmodule TheGame.NBAGame do
 
     point_diff = get_point_diff(v_team_score, h_team_score)
 
+    excitement_level = determine_excitement_level(game, point_diff)
+
     %TheGame.NBAGame{
       clock: should_be_nil?(Map.get(game, "clock")),
-      period: Map.get(game, "period") |> Map.get("current") |> Integer.to_string() |> nthify(),
+      excitement_level: excitement_level,
       h_team_conf: h_team_conf,
       h_team_conf_rank: h_team_conf_rank,
       h_team_logo_svg: h_team_logo_svg,
@@ -99,8 +103,10 @@ defmodule TheGame.NBAGame do
       h_team_win: Map.get(game, "hTeam") |> Map.get("win"),
       is_end_of_period: Map.get(game, "period") |> Map.get("isEndOfPeriod"),
       is_halftime: Map.get(game, "period") |> Map.get("isHalftime"),
+      period: Map.get(game, "period") |> Map.get("current") |> Integer.to_string() |> nthify(),
       point_diff: point_diff,
       start_time_eastern: Map.get(game, "startTimeEastern"),
+      start_date_eastern: Map.get(game, "startDateEastern"),
       v_team_conf: v_team_conf,
       v_team_conf_rank: v_team_conf_rank,
       v_team_logo_svg: v_team_logo_svg,
@@ -110,6 +116,41 @@ defmodule TheGame.NBAGame do
       v_team_url_city_and_name: v_team_url_city_and_name,
       v_team_win: Map.get(game, "vTeam") |> Map.get("win")
     }
+  end
+
+  defp determine_excitement_level(game, point_diff) do
+    if game_is_completed(game, point_diff) do
+      excitement_level_face(game, point_diff)
+    else
+      nil
+    end
+  end
+
+  defp determine_excitement_level(_) do
+    nil
+  end
+
+  defp excitement_level_face(%{"overtime" => true}, _point_diff), do: "🤯🤯🤯"
+  defp excitement_level_face(_game, point_diff) when point_diff < 5, do: "🤯🤯🤯"
+  defp excitement_level_face(_game, point_diff) when point_diff >= 5 and point_diff < 10, do: "😲😲"
+  defp excitement_level_face(_game, point_diff) when point_diff >= 10, do: "🥱"
+
+  # statusNum that signifies a completed game
+  defp game_is_completed(game = %{"statusNum" => 3}, _point_diff) do
+    true
+  end
+
+  # In case where game is over but "statusNum" hasn't been updated yet.
+  defp game_is_completed(
+         game = %{"period" => %{"current" => 4, "isEndOfPeriod" => true}},
+         point_diff
+       )
+       when point_diff != 0 do
+    true
+  end
+
+  defp game_is_completed(_, _) do
+    false
   end
 
   defp should_be_nil?(""), do: nil
