@@ -55,7 +55,6 @@ defmodule TheGame.NBAGame do
       h_team_meta
       |> Map.get("fullName")
       |> lower_dash()
-      |> IO.inspect(label: "h_team_url_city_and_name>>>")
 
     v_team_score = Map.get(game, "vTeam") |> Map.get("score")
     v_team_id = Map.get(game, "vTeam") |> Map.get("teamId")
@@ -84,7 +83,6 @@ defmodule TheGame.NBAGame do
       v_team_meta
       |> Map.get("fullName")
       |> lower_dash()
-      |> IO.inspect(label: "v_team_url_city_and_name>>>")
 
     point_diff = get_point_diff(v_team_score, h_team_score)
 

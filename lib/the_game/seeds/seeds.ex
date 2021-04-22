@@ -465,7 +465,7 @@ defmodule TheGame.Seeds do
     }
   end
 
-  def live_game_end_of_period() do
+  def live_game_end_of_3rd_period() do
     %{
       "arena" => %{
         "city" => "Boston",
@@ -605,6 +605,149 @@ defmodule TheGame.Seeds do
             "isTNTOT" => false,
             "isVR" => false,
             "regionalBlackoutCodes" => "torr",
+            "streams" => [%{"doesArchiveExist" => false}],
+            "tntotIsOnAir" => false
+          }
+        }
+      }
+    }
+  end
+
+  def live_game_end_of_4th_period() do
+    %{
+      "arena" => %{
+        "city" => "Sacramento",
+        "country" => "USA",
+        "isDomestic" => true,
+        "name" => "Golden 1 Center",
+        "stateAbbr" => "CA"
+      },
+      "attendance" => "0",
+      "clock" => "",
+      "extendedStatusNum" => 0,
+      "gameDuration" => %{"hours" => "2", "minutes" => "17"},
+      "gameId" => "0022000891",
+      "gameUrlCode" => "20210421/MINSAC",
+      "hTeam" => %{
+        "linescore" => [
+          %{"score" => "44"},
+          %{"score" => "26"},
+          %{"score" => "25"},
+          %{"score" => "33"}
+        ],
+        "loss" => "35",
+        "score" => "128",
+        "seriesLoss" => "2",
+        "seriesWin" => "1",
+        "teamId" => "1610612758",
+        "triCode" => "SAC",
+        "win" => "23"
+      },
+      "hasGameBookPdf" => false,
+      "homeStartDate" => "20210421",
+      "homeStartTime" => "1900",
+      "isBuzzerBeater" => false,
+      "isGameActivated" => true,
+      "isNeutralVenue" => false,
+      "isPreviewArticleAvail" => true,
+      "isRecapArticleAvail" => false,
+      "isStartTimeTBD" => false,
+      "leagueName" => "standard",
+      "nugget" => %{"text" => ""},
+      "period" => %{
+        "current" => 4,
+        "isEndOfPeriod" => true,
+        "isHalftime" => false,
+        "maxRegular" => 4,
+        "type" => 0
+      },
+      "seasonStageId" => 2,
+      "seasonYear" => "2020",
+      "startDateEastern" => "20210421",
+      "startTimeEastern" => "10:00 PM ET",
+      "startTimeUTC" => "2021-04-22T02:00:00.000Z",
+      "statusNum" => 2,
+      "tickets" => %{
+        "desktopWeb" => "https://a.data.nba.com/tickets/single/2020/0022000891/TEAM_SCH",
+        "leagGameInfo" => "https://a.data.nba.com/tickets/single/2020/0022000891/LEAG_GAMEINFO",
+        "leagTix" => "https://a.data.nba.com/tickets/single/2020/0022000891/LEAG_TIX",
+        "mobileApp" => "https://a.data.nba.com/tickets/single/2020/0022000891/APP_TIX",
+        "mobileWeb" => "https://a.data.nba.com/tickets/single/2020/0022000891/WEB_MWEB"
+      },
+      "vTeam" => %{
+        "linescore" => [
+          %{"score" => "34"},
+          %{"score" => "25"},
+          %{"score" => "39"},
+          %{"score" => "27"}
+        ],
+        "loss" => "43",
+        "score" => "125",
+        "seriesLoss" => "1",
+        "seriesWin" => "2",
+        "teamId" => "1610612750",
+        "triCode" => "MIN",
+        "win" => "16"
+      },
+      "visitorStartDate" => "20210421",
+      "visitorStartTime" => "2100",
+      "watch" => %{
+        "broadcast" => %{
+          "audio" => %{
+            "hTeam" => %{
+              "broadcasters" => [
+                %{
+                  "longName" => "KHTK Sports 1140 AM",
+                  "shortName" => "KHTK Sports 1140 AM"
+                }
+              ],
+              "streams" => [
+                %{"isOnAir" => false, "language" => "English", "streamId" => ""},
+                %{"isOnAir" => false, "language" => "Spanish", "streamId" => ""}
+              ]
+            },
+            "national" => %{
+              "broadcasters" => [],
+              "streams" => [
+                %{"isOnAir" => false, "language" => "English", "streamId" => ""},
+                %{"isOnAir" => false, "language" => "Spanish", "streamId" => ""}
+              ]
+            },
+            "vTeam" => %{
+              "broadcasters" => [
+                %{"longName" => "830 WCCO", "shortName" => "830 WCCO"}
+              ],
+              "streams" => [
+                %{"isOnAir" => false, "language" => "English", "streamId" => ""},
+                %{"isOnAir" => false, "language" => "Spanish", "streamId" => ""}
+              ]
+            }
+          },
+          "broadcasters" => %{
+            "canadian" => [],
+            "hTeam" => [
+              %{"longName" => "NBC Sports California", "shortName" => "NBCSCA"}
+            ],
+            "national" => [],
+            "spanish_hTeam" => [],
+            "spanish_national" => [],
+            "spanish_vTeam" => [],
+            "vTeam" => [
+              %{"longName" => "Bally Sports North Plus", "shortName" => "BSN+"}
+            ]
+          },
+          "video" => %{
+            "canPurchase" => true,
+            "deepLink" => [],
+            "isLeaguePass" => true,
+            "isMagicLeap" => false,
+            "isNBAOnTNTVR" => false,
+            "isNationalBlackout" => false,
+            "isNextVR" => false,
+            "isOculusVenues" => false,
+            "isTNTOT" => false,
+            "isVR" => false,
+            "regionalBlackoutCodes" => "sacr_minr",
             "streams" => [%{"doesArchiveExist" => false}],
             "tntotIsOnAir" => false
           }

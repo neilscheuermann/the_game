@@ -56,9 +56,10 @@ defmodule TheGame.NBA do
     #   live_games:
     #     [
     #       TheGame.Seeds.live_game(),
-    #       TheGame.Seeds.live_game_end_of_period(),
+    #       TheGame.Seeds.live_game_end_of_3rd_period(),
     #       TheGame.Seeds.live_game_at_halftime(),
-    #       TheGame.Seeds.live_game_overtime_double()
+    #       TheGame.Seeds.live_game_overtime_double(),
+    #       TheGame.Seeds.live_game_end_of_4th_period()
     #     ]
     #     |> format_games(),
     #   completed_games: [TheGame.Seeds.completed_game()] |> format_games(),
