@@ -10,6 +10,7 @@ defmodule TheGame.NBAGame do
     :h_team_logo_svg,
     :h_team_loss,
     :h_team_nickname,
+    :h_team_streak_text,
     :h_team_score,
     :h_team_url_city_and_name,
     :h_team_win,
@@ -24,6 +25,7 @@ defmodule TheGame.NBAGame do
     :v_team_logo_svg,
     :v_team_loss,
     :v_team_nickname,
+    :v_team_streak_text,
     :v_team_score,
     :v_team_url_city_and_name,
     :v_team_win
@@ -53,6 +55,11 @@ defmodule TheGame.NBAGame do
       h_team_meta
       |> Map.get("nickname")
 
+    h_team_streak_text =
+      h_team_standings_meta
+      |> Map.get("teamSitesOnly")
+      |> Map.get("streakText")
+
     h_team_url_city_and_name =
       h_team_meta
       |> Map.get("fullName")
@@ -81,6 +88,11 @@ defmodule TheGame.NBAGame do
       v_team_meta
       |> Map.get("nickname")
 
+    v_team_streak_text =
+      v_team_standings_meta
+      |> Map.get("teamSitesOnly")
+      |> Map.get("streakText")
+
     v_team_url_city_and_name =
       v_team_meta
       |> Map.get("fullName")
@@ -98,6 +110,7 @@ defmodule TheGame.NBAGame do
       h_team_logo_svg: h_team_logo_svg,
       h_team_loss: Map.get(game, "hTeam") |> Map.get("loss"),
       h_team_nickname: h_team_nickname,
+      h_team_streak_text: h_team_streak_text,
       h_team_score: h_team_score,
       h_team_url_city_and_name: h_team_url_city_and_name,
       h_team_win: Map.get(game, "hTeam") |> Map.get("win"),
@@ -112,6 +125,7 @@ defmodule TheGame.NBAGame do
       v_team_logo_svg: v_team_logo_svg,
       v_team_loss: Map.get(game, "vTeam") |> Map.get("loss"),
       v_team_nickname: v_team_nickname,
+      v_team_streak_text: v_team_streak_text,
       v_team_score: v_team_score,
       v_team_url_city_and_name: v_team_url_city_and_name,
       v_team_win: Map.get(game, "vTeam") |> Map.get("win")
