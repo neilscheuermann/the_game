@@ -6,15 +6,19 @@ defmodule TheGame.NBADataService do
   if it comes from the database, an external API or others.
   """
 
-  def fetch_daily_games(date) do
+  require Logger
+
+  def fetch_current_scoreboard_for_day(date) do
     case HTTPoison.get("http://data.nba.net/prod/v1/#{date}/scoreboard.json") do
       {:ok, %HTTPoison.Response{body: body, status_code: 200}} ->
         {:ok, extract_games(body)}
 
       {:ok, %HTTPoison.Response{status_code: 404}} ->
+        Logger.error("&fetch_current_scoreboard_for_day/1, Page not found")
         {:error, :not_found}
 
-      {:ok, %HTTPoison.Error{reason: reason}} ->
+      {:error, %HTTPoison.Error{reason: reason}} ->
+        Logger.error("&fetch_current_scoreboard_for_day/1, error reason: #{reason}")
         {:error, reason}
     end
   end
@@ -29,7 +33,7 @@ defmodule TheGame.NBADataService do
       {:ok, %HTTPoison.Response{status_code: 404}} ->
         {:error, :not_found}
 
-      {:ok, %HTTPoison.Error{reason: reason}} ->
+      {:error, %HTTPoison.Error{reason: reason}} ->
         {:error, reason}
     end
   end
@@ -42,7 +46,7 @@ defmodule TheGame.NBADataService do
       {:ok, %HTTPoison.Response{status_code: 404}} ->
         {:error, :not_found}
 
-      {:ok, %HTTPoison.Error{reason: reason}} ->
+      {:error, %HTTPoison.Error{reason: reason}} ->
         {:error, reason}
     end
   end
@@ -55,7 +59,7 @@ defmodule TheGame.NBADataService do
       {:ok, %HTTPoison.Response{status_code: 404}} ->
         {:error, :not_found}
 
-      {:ok, %HTTPoison.Error{reason: reason}} ->
+      {:error, %HTTPoison.Error{reason: reason}} ->
         {:error, reason}
     end
   end
@@ -68,7 +72,7 @@ defmodule TheGame.NBADataService do
       {:ok, %HTTPoison.Response{status_code: 404}} ->
         {:error, :not_found}
 
-      {:ok, %HTTPoison.Error{reason: reason}} ->
+      {:error, %HTTPoison.Error{reason: reason}} ->
         {:error, reason}
     end
   end
