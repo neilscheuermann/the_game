@@ -62,23 +62,23 @@ defmodule TheGame.NBA do
       upcoming_games: upcoming_games
     }
 
-    # MOCKS
-    %{
-      live_games:
-        [
-          TheGame.Seeds.live_game(),
-          TheGame.Seeds.live_game_end_of_3rd_period(),
-          TheGame.Seeds.live_game_at_halftime(),
-          TheGame.Seeds.live_game_overtime_double(),
-          TheGame.Seeds.live_game_end_of_4th_period()
-        ]
-        |> format_games(league_teams_data, league_standings_data),
-      completed_games:
-        [TheGame.Seeds.completed_game()] |> format_games(league_teams_data, league_standings_data),
-      upcoming_games:
-        [TheGame.Seeds.upcoming_game(), TheGame.Seeds.upcoming_game_on_espn()]
-        |> format_games(league_teams_data, league_standings_data)
-    }
+    # # MOCKS
+    # %{
+    #   live_games:
+    #     [
+    #       TheGame.Seeds.live_game(),
+    #       TheGame.Seeds.live_game_end_of_3rd_period(),
+    #       TheGame.Seeds.live_game_at_halftime(),
+    #       TheGame.Seeds.live_game_overtime_double(),
+    #       TheGame.Seeds.live_game_end_of_4th_period()
+    #     ]
+    #     |> format_games(league_teams_data, league_standings_data),
+    #   completed_games:
+    #     [TheGame.Seeds.completed_game()] |> format_games(league_teams_data, league_standings_data),
+    #   upcoming_games:
+    #     [TheGame.Seeds.upcoming_game(), TheGame.Seeds.upcoming_game_on_espn()]
+    #     |> format_games(league_teams_data, league_standings_data)
+    # }
   end
 
   defp is_upcoming_game?(%{"statusNum" => 1}), do: true
