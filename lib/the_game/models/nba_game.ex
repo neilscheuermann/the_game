@@ -98,6 +98,14 @@ defmodule TheGame.NBAGame do
       |> Map.get("fullName")
       |> lower_dash()
 
+    period =
+      game
+      |> Map.get("period")
+      |> Map.get("current")
+      |> Integer.to_string()
+      |> nthify()
+      |> is_overtime?()
+
     point_diff = get_point_diff(v_team_score, h_team_score)
 
     excitement_level = determine_excitement_level(game, point_diff)
@@ -116,7 +124,7 @@ defmodule TheGame.NBAGame do
       h_team_win: Map.get(game, "hTeam") |> Map.get("win"),
       is_end_of_period: Map.get(game, "period") |> Map.get("isEndOfPeriod"),
       is_halftime: Map.get(game, "period") |> Map.get("isHalftime"),
-      period: Map.get(game, "period") |> Map.get("current") |> Integer.to_string() |> nthify(),
+      period: period,
       point_diff: point_diff,
       start_time_eastern: Map.get(game, "startTimeEastern"),
       start_date_eastern: Map.get(game, "startDateEastern"),
@@ -167,10 +175,21 @@ defmodule TheGame.NBAGame do
     false
   end
 
+  defp is_overtime?(period) do
+    case period do
+      "5th" -> "OT"
+      "6th" -> "OT2"
+      "7th" -> "OT3"
+      "8th" -> "OT4"
+      _ -> period
+    end
+  end
+
   defp should_be_nil?(""), do: nil
 
   defp should_be_nil?(val), do: val
 
+  # only works up to 20
   def nthify(num) do
     case num do
       "1" -> num <> "st"
