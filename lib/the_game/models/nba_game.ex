@@ -64,6 +64,7 @@ defmodule TheGame.NBAGame do
       h_team_meta
       |> Map.get("fullName")
       |> lower_dash()
+      |> validate_url_city_and_name()
 
     v_team_score = Map.get(game, "vTeam") |> Map.get("score")
     v_team_id = Map.get(game, "vTeam") |> Map.get("teamId")
@@ -97,6 +98,8 @@ defmodule TheGame.NBAGame do
       v_team_meta
       |> Map.get("fullName")
       |> lower_dash()
+      |> validate_url_city_and_name()
+      |> IO.inspect(label: "val>>>")
 
     period =
       game
@@ -219,5 +222,12 @@ defmodule TheGame.NBAGame do
     |> String.split(" ")
     |> Enum.join("-")
     |> String.downcase()
+  end
+
+  defp validate_url_city_and_name(city_and_name) do
+    case city_and_name do
+      "la-clippers" -> "los-angeles-clippers"
+      _ -> city_and_name
+    end
   end
 end
