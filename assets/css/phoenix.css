@@ -179,6 +179,41 @@ p {
   text-align: center;
 }
 
+.standing-tile {
+  display: flex;
+  padding: 2px 0;
+}
+.standing-tile:nth-child(7) {
+  border-bottom: solid 1px black;
+}
+.standing-tile:nth-child(11) {
+  border-bottom: solid 2px black;
+}
+
+.standing-live-game-info {
+  display: flex;
+  font-size: 12px;
+  align-items: center;
+  margin-left: 8px;
+}
+.standing-live-game-info > * {
+  margin-right: 4px;
+}
+
+.standing-data {
+  display: flex;
+  margin-left: auto;
+}
+.standing-data > * {
+  margin-left: 8px;
+  padding-right: 8px;
+  border-right: solid 1px black
+}
+.standing-data > *:last-child {
+  border-right: none;
+}
+
+/* Format */
 .bold {
   font-weight: bold;
 }
@@ -192,6 +227,9 @@ p {
 }
 .font-med {
   font-size: 14px;
+}
+.font-lg {
+  font-size: 18px;
 }
 
 .amp {

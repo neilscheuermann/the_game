@@ -207,4 +207,8 @@
     </div>
     <br>
   <% end %>
+
+  <h3>Standings</h3>
+  <%= live_component(@socket, TheGameWeb.StandingsComponent, standings: @standings) %>
+
 </section>

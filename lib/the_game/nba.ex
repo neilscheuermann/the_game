@@ -81,6 +81,21 @@ defmodule TheGame.NBA do
     # }
   end
 
+  def conference_standings() do
+    conference_standings =
+      case NBADataService.fetch_conference_standings_data() do
+        {:ok, conference_standings} ->
+          TheGame.NBAStandingTile.format_standings(conference_standings)
+
+        # Will this cause the page to go blank for the 15 second interval,
+        # until the next analysis runs? Better than crashing the app I guess,
+        # but I would like it to retry when it fails, instead of only returning
+        # no data.
+        {:error, _} ->
+          %{}
+      end
+  end
+
   defp is_upcoming_game?(%{"statusNum" => 1}), do: true
   defp is_upcoming_game?(_), do: false
 

@@ -142,6 +142,10 @@ defmodule TheGame.NBAGame do
     }
   end
 
+  def get_team_logo_svg(team_id) do
+    "https://cdn.nba.com/logos/nba/#{team_id}/primary/L/logo.svg"
+  end
+
   defp determine_excitement_level(game, point_diff) do
     if game_is_completed(game, point_diff) do
       excitement_level_face(game, point_diff)
@@ -199,10 +203,6 @@ defmodule TheGame.NBAGame do
       "3" -> num <> "rd"
       _ -> num <> "th"
     end
-  end
-
-  defp get_team_logo_svg(team_id) do
-    "https://cdn.nba.com/logos/nba/#{team_id}/primary/L/logo.svg"
   end
 
   defp get_point_diff(score_a, score_b) when score_a === "" or score_b === "" do

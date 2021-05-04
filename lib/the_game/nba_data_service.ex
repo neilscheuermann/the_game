@@ -77,6 +77,19 @@ defmodule TheGame.NBADataService do
     end
   end
 
+  def fetch_conference_standings_data() do
+    case HTTPoison.get("http://data.nba.net/prod/v1/current/standings_conference.json") do
+      {:ok, %HTTPoison.Response{body: body, status_code: 200}} ->
+        {:ok, extract_conference_standings(body)}
+
+      {:ok, %HTTPoison.Response{status_code: 404}} ->
+        {:error, :not_found}
+
+      {:error, %HTTPoison.Error{reason: reason}} ->
+        {:error, reason}
+    end
+  end
+
   defp extract_games(body) do
     body |> Jason.decode!() |> Map.get("games")
   end
@@ -87,5 +100,9 @@ defmodule TheGame.NBADataService do
 
   defp extract_team_standings(body) do
     body |> Jason.decode!() |> Map.get("league") |> Map.get("standard") |> Map.get("teams")
+  end
+
+  defp extract_conference_standings(body) do
+    body |> Jason.decode!() |> Map.get("league") |> Map.get("standard") |> Map.get("conference")
   end
 end

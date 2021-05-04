@@ -13,7 +13,9 @@ defmodule TheGameWeb.TheGameLive do
 
     days_games = TheGame.NBA.get_days_games()
 
-    {:ok, assign(socket, days_games: days_games)}
+    standings = TheGame.NBA.conference_standings()
+
+    {:ok, assign(socket, days_games: days_games, standings: standings)}
   end
 
   def handle_info({:fifteen_second_update, days_games}, socket) do
