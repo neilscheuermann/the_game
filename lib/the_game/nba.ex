@@ -92,7 +92,7 @@ defmodule TheGame.NBA do
         # but I would like it to retry when it fails, instead of only returning
         # no data.
         {:error, _} ->
-          %{}
+          %{east: [], west: []}
       end
   end
 
