@@ -148,7 +148,7 @@ defmodule TheGame.NBAGame do
 
   defp determine_excitement_level(game, point_diff) do
     if game_is_completed(game, point_diff) do
-      excitement_level_face(game, point_diff)
+      excitement_level_face(Map.get(game, "period"), point_diff)
     else
       nil
     end
@@ -158,10 +158,13 @@ defmodule TheGame.NBAGame do
     nil
   end
 
-  defp excitement_level_face(%{"overtime" => true}, _point_diff), do: "🤯🤯🤯"
-  defp excitement_level_face(_game, point_diff) when point_diff < 5, do: "🤯🤯🤯"
-  defp excitement_level_face(_game, point_diff) when point_diff >= 5 and point_diff < 10, do: "😲😲"
-  defp excitement_level_face(_game, point_diff) when point_diff >= 10, do: "🥱"
+  defp excitement_level_face(%{"current" => current}, _point_diff) when current > 4, do: "🤯🤯🤯"
+  defp excitement_level_face(_period, point_diff) when point_diff < 5, do: "🤯🤯🤯"
+
+  defp excitement_level_face(_period, point_diff) when point_diff >= 5 and point_diff < 10,
+    do: "😲😲"
+
+  defp excitement_level_face(_period, point_diff) when point_diff >= 10, do: "🥱"
 
   # statusNum that signifies a completed game
   defp game_is_completed(game = %{"statusNum" => 3}, _point_diff) do
