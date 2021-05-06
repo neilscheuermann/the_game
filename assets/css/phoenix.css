@@ -124,6 +124,11 @@ p {
   margin-right: 16px;
 }
 
+.toggle-excitement-button {
+  min-width: 30px;
+  text-align: center;
+}
+
 .game-link {
   font-size: 14px;
 }

@@ -56,7 +56,7 @@ defmodule TheGameWeb.CompletedGamesComponent do
           </a>
 
           <div class="time-period-point-diff">
-            <div phx-click="toggle_excitement_level" phx-value-show_excitement_level="<%= @show_excitement_level %>">
+            <div class="toggle-excitement-button" phx-click="toggle_excitement_level" phx-value-show_excitement_level="<%= @show_excitement_level %>">
               <%= if @show_excitement_level do %>
                 <p><span><%= game.excitement_level%></span></p>
               <% else %>
