@@ -245,16 +245,14 @@ p {
 /* MOBILE STYLES */
 /* Small devices (575px and down) */
 @media (max-width: 575px) { 
-    .container{
-      padding: 0;
-    }
-    .nba-game-tile {
-      border-radius: 5px;
-      display: flex;
-    }
-    .team-info > div > * {
-      margin: 0 4px;
-    }
-    .team-name {
-    }
+  .container{
+    padding: 0;
+  }
+  .nba-game-tile {
+    border-radius: 5px;
+    display: flex;
+  }
+  .team-info > div > * {
+    margin: 0 4px;
+  }
 }

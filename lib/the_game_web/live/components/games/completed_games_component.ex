@@ -13,7 +13,7 @@ defmodule TheGameWeb.CompletedGamesComponent do
               <image xlink:href="<%= game.v_team_logo_svg %>" width="40" height="40"/>    
             </svg>   
             <div class="team-name-rank-wrapper">
-              <p class="team-name">
+              <p>
                 <%= game.v_team_nickname %>
               </p>
               <div class="team-rank-wrapper">
@@ -35,7 +35,7 @@ defmodule TheGameWeb.CompletedGamesComponent do
               <image xlink:href="<%= game.h_team_logo_svg %>" width="40" height="40"/>    
             </svg>   
             <div class="team-name-rank-wrapper">
-              <p class="team-name">
+              <p>
                 <%= game.h_team_nickname %>
               </p>
               <div class="team-rank-wrapper">
