@@ -58,10 +58,13 @@ defmodule TheGameWeb.UpcomingGamesComponent do
             </div>
           </div>
         </div>
-        <div class="game-info">
-          <p class="font-med start-time">
+        <div class="upcoming-game-info">
+          <p class="font-med">
             <%= game.start_time_eastern %> 
           </p>
+          <%= if game.national_broadcaster do %>
+          <p class="font-small"><%= game.national_broadcaster %></p>
+          <% end %>
         </div>
       </div>
     <% end %>

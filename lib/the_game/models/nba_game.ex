@@ -16,6 +16,7 @@ defmodule TheGame.NBAGame do
     :h_team_win,
     :is_end_of_period,
     :is_halftime,
+    :national_broadcaster,
     :period,
     :point_diff,
     :start_time_eastern,
@@ -112,6 +113,19 @@ defmodule TheGame.NBAGame do
 
     excitement_level = determine_excitement_level(game, point_diff)
 
+    national_broadcaster =
+      game
+      |> Map.get("watch")
+      |> Map.get("broadcast")
+      |> Map.get("broadcasters")
+      |> Map.get("national")
+      |> List.first()
+
+    national_broadcaster =
+      if national_broadcaster do
+        Map.get(national_broadcaster, "longName")
+      end
+
     %TheGame.NBAGame{
       clock: should_be_nil?(Map.get(game, "clock")),
       excitement_level: excitement_level,
@@ -126,6 +140,7 @@ defmodule TheGame.NBAGame do
       h_team_win: Map.get(game, "hTeam") |> Map.get("win"),
       is_end_of_period: Map.get(game, "period") |> Map.get("isEndOfPeriod"),
       is_halftime: Map.get(game, "period") |> Map.get("isHalftime"),
+      national_broadcaster: national_broadcaster,
       period: period,
       point_diff: point_diff,
       start_time_eastern: Map.get(game, "startTimeEastern"),
