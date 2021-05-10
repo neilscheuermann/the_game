@@ -17,9 +17,6 @@ defmodule TheGameWeb.TheGameLive do
   end
 
   def mount(_params, _session, socket) do
-    # can maybe remove?
-    TheGame.NBA.subscribe()
-
     if connected?(socket) do
       # conditionally perform stateful work, such as 
       # subscribing to pubsub topics, sending messages, etc.
