@@ -3,7 +3,9 @@ defmodule TheGame.NBAStandingTile do
   Sets the NBAStandingTile struct
   """
   defstruct [
+    :clinched_playoffs_code,
     :clock,
+    :conf_rank,
     :game_is_underway,
     :game_is_away,
     :games_behind,
@@ -32,6 +34,7 @@ defmodule TheGame.NBAStandingTile do
 
     %TheGame.NBAStandingTile{}
     |> Map.put(:conf_rank, team_standing.confRank)
+    |> Map.put(:clinched_playoffs_code, team_standing.clinchedPlayoffsCode)
     |> Map.put(:games_behind, team_standing.gamesBehind)
     |> Map.put(:last_ten_loss, team_standing.lastTenLoss)
     |> Map.put(:last_ten_win, team_standing.lastTenWin)

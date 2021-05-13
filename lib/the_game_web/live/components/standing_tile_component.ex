@@ -10,6 +10,8 @@ defmodule TheGameWeb.StandingTileComponent do
           <image xlink:href="<%= @team.logo_svg %>" width="20" height="20"/>    
         </svg>   
         <p><%= @team.tri_code %></p>
+        <p class="font-small"><%= @team.clinched_playoffs_code %></p>
+
         <%= if @team.game_is_underway do %>
         <div class="standing-live-game-info">
           <p class="standing-amp">
@@ -23,6 +25,7 @@ defmodule TheGameWeb.StandingTileComponent do
           <p><%= @team.period %></p>
         </div>
         <% end %>
+
         <div class="standing-data font-med">
           <p><%= @team.win %>-<%= @team.loss %></p>
           <p><%= @team.games_behind %></p>
