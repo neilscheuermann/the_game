@@ -33,89 +33,39 @@ defmodule TheGame.NBAGame do
   ]
 
   def format_game(game, league_teams_data, league_standings_data) do
-    h_team_score = Map.get(game, "hTeam") |> Map.get("score")
-    h_team_id = Map.get(game, "hTeam") |> Map.get("teamId")
-    h_team_logo_svg = get_team_logo_svg(h_team_id)
+    game = convert_to_atom_map(game)
+    h_team_id = game.hTeam |> Map.get("teamId")
+    v_team_id = game.vTeam |> Map.get("teamId")
 
     h_team_meta =
       Enum.find(league_teams_data, fn %{"teamId" => team_id} -> team_id == h_team_id end)
+      |> convert_to_atom_map()
 
     h_team_standings_meta =
       Enum.find(league_standings_data, fn %{"teamId" => team_id} -> team_id == h_team_id end)
-
-    h_team_conf =
-      h_team_meta
-      |> Map.get("confName")
-
-    h_team_conf_rank =
-      h_team_standings_meta
-      |> Map.get("confRank")
-      |> nthify()
-
-    h_team_nickname =
-      h_team_meta
-      |> Map.get("nickname")
-
-    h_team_streak_text =
-      h_team_standings_meta
-      |> Map.get("teamSitesOnly")
-      |> Map.get("streakText")
-
-    h_team_url_city_and_name =
-      h_team_meta
-      |> Map.get("fullName")
-      |> lower_dash()
-      |> validate_url_city_and_name()
-
-    v_team_score = Map.get(game, "vTeam") |> Map.get("score")
-    v_team_id = Map.get(game, "vTeam") |> Map.get("teamId")
-    v_team_logo_svg = get_team_logo_svg(v_team_id)
+      |> convert_to_atom_map()
 
     v_team_meta =
       Enum.find(league_teams_data, fn %{"teamId" => team_id} -> team_id == v_team_id end)
+      |> convert_to_atom_map()
 
     v_team_standings_meta =
       Enum.find(league_standings_data, fn %{"teamId" => team_id} -> team_id == v_team_id end)
+      |> convert_to_atom_map()
 
-    v_team_conf =
-      v_team_meta
-      |> Map.get("confName")
-
-    v_team_conf_rank =
-      v_team_standings_meta
-      |> Map.get("confRank")
-      |> nthify()
-
-    v_team_nickname =
-      v_team_meta
-      |> Map.get("nickname")
-
-    v_team_streak_text =
-      v_team_standings_meta
-      |> Map.get("teamSitesOnly")
-      |> Map.get("streakText")
-
-    v_team_url_city_and_name =
-      v_team_meta
-      |> Map.get("fullName")
-      |> lower_dash()
-      |> validate_url_city_and_name()
+    h_team_score = game.hTeam |> Map.get("score")
+    v_team_score = game.vTeam |> Map.get("score")
+    point_diff = get_point_diff(v_team_score, h_team_score)
 
     period =
-      game
-      |> Map.get("period")
+      game.period
       |> Map.get("current")
       |> Integer.to_string()
       |> nthify()
       |> is_overtime?()
 
-    point_diff = get_point_diff(v_team_score, h_team_score)
-
-    excitement_level = determine_excitement_level(game, point_diff)
-
     national_broadcaster =
-      game
-      |> Map.get("watch")
+      game.watch
       |> Map.get("broadcast")
       |> Map.get("broadcasters")
       |> Map.get("national")
@@ -126,35 +76,48 @@ defmodule TheGame.NBAGame do
         Map.get(national_broadcaster, "longName")
       end
 
-    %TheGame.NBAGame{
-      clock: should_be_nil?(Map.get(game, "clock")),
-      excitement_level: excitement_level,
-      h_team_conf: h_team_conf,
-      h_team_conf_rank: h_team_conf_rank,
-      h_team_logo_svg: h_team_logo_svg,
-      h_team_loss: Map.get(game, "hTeam") |> Map.get("loss"),
-      h_team_nickname: h_team_nickname,
-      h_team_streak_text: h_team_streak_text,
-      h_team_score: h_team_score,
-      h_team_url_city_and_name: h_team_url_city_and_name,
-      h_team_win: Map.get(game, "hTeam") |> Map.get("win"),
-      is_end_of_period: Map.get(game, "period") |> Map.get("isEndOfPeriod"),
-      is_halftime: Map.get(game, "period") |> Map.get("isHalftime"),
-      national_broadcaster: national_broadcaster,
-      period: period,
-      point_diff: point_diff,
-      start_time_eastern: Map.get(game, "startTimeEastern"),
-      start_date_eastern: Map.get(game, "startDateEastern"),
-      v_team_conf: v_team_conf,
-      v_team_conf_rank: v_team_conf_rank,
-      v_team_logo_svg: v_team_logo_svg,
-      v_team_loss: Map.get(game, "vTeam") |> Map.get("loss"),
-      v_team_nickname: v_team_nickname,
-      v_team_streak_text: v_team_streak_text,
-      v_team_score: v_team_score,
-      v_team_url_city_and_name: v_team_url_city_and_name,
-      v_team_win: Map.get(game, "vTeam") |> Map.get("win")
-    }
+    %TheGame.NBAGame{}
+    |> Map.put(:clock, should_be_nil?(game.clock))
+    |> Map.put(:excitement_level, determine_excitement_level(game, point_diff))
+    |> Map.put(:h_team_conf, h_team_meta.confName)
+    |> Map.put(:h_team_conf_rank, nthify(h_team_standings_meta.confRank))
+    |> Map.put(:h_team_logo_svg, get_team_logo_svg(h_team_id))
+    |> Map.put(:h_team_loss, Map.get(game.hTeam, "loss"))
+    |> Map.put(:h_team_nickname, h_team_meta.nickname)
+    |> Map.put(:h_team_streak_text, Map.get(h_team_standings_meta.teamSitesOnly, "streakText"))
+    |> Map.put(:h_team_score, h_team_score)
+    |> Map.put(
+      :h_team_url_city_and_name,
+      h_team_meta.fullName
+      |> lower_dash()
+      |> validate_url_city_and_name()
+    )
+    |> Map.put(:h_team_win, Map.get(game.hTeam, "win"))
+    |> Map.put(:is_end_of_period, Map.get(game.period, "isEndOfPeriod"))
+    |> Map.put(:is_halftime, Map.get(game.period, "isHalftime"))
+    |> Map.put(:national_broadcaster, national_broadcaster)
+    |> Map.put(:period, period)
+    |> Map.put(:point_diff, point_diff)
+    |> Map.put(:start_time_eastern, game.startTimeEastern)
+    |> Map.put(:start_date_eastern, game.startDateEastern)
+    |> Map.put(:v_team_conf, v_team_meta.confName)
+    |> Map.put(:v_team_conf_rank, nthify(v_team_standings_meta.confRank))
+    |> Map.put(:v_team_logo_svg, get_team_logo_svg(v_team_id))
+    |> Map.put(:v_team_loss, Map.get(game.vTeam, "loss"))
+    |> Map.put(:v_team_nickname, v_team_meta.nickname)
+    |> Map.put(:v_team_streak_text, Map.get(v_team_standings_meta.teamSitesOnly, "streakText"))
+    |> Map.put(:v_team_score, v_team_score)
+    |> Map.put(
+      :v_team_url_city_and_name,
+      v_team_meta.fullName
+      |> lower_dash()
+      |> validate_url_city_and_name()
+    )
+    |> Map.put(:v_team_win, Map.get(game.vTeam, "win"))
+  end
+
+  defp convert_to_atom_map(string_map) do
+    for {key, val} <- string_map, into: %{}, do: {String.to_atom(key), val}
   end
 
   def get_team_logo_svg(team_id) do
