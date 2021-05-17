@@ -145,19 +145,22 @@ defmodule TheGame.NBAGame do
   end
 
   defp determine_game_status(%{statusNum: 1}, _point_dif), do: :upcoming
-  defp determine_game_status(%{statusNum: 2}, _point_diff), do: :live
 
-  defp determine_game_status(%{statusNum: 3}, _point_diff) do
-    :completed
-  end
+  defp determine_game_status(%{statusNum: 3}, _point_diff), do: :completed
 
+  # Covers case when it's the end of the 4th, not overtime, and the game_status
+  # hasn't been changed yet.
   defp determine_game_status(
-         %{period: %{"current" => 4, "isEndOfPeriod" => true}},
+         %{statusNum: 2, period: %{"current" => 4, "isEndOfPeriod" => true}},
          point_diff
        )
        when point_diff != 0 do
     :completed
   end
+
+  # Needs to be below `when point_diff != 0 do` pattern match so the statusNum 2
+  # doesn't leave the point_diff showing after the game has completed.
+  defp determine_game_status(%{statusNum: 2}, _point_diff), do: :live
 
   defp excitement_level_face(%{"current" => current}, _point_diff) when current > 4, do: "🤯🤯🤯"
   defp excitement_level_face(_period, point_diff) when point_diff < 5, do: "🤯🤯🤯"
