@@ -5,13 +5,17 @@ defmodule TheGame.NBAGame do
   defstruct [
     :clock,
     :excitement_level,
+    # [:completed, :live, :upcoming]
+    :game_status,
     :h_team_conf,
     :h_team_conf_rank,
+    :h_team_id,
     :h_team_logo_svg,
     :h_team_loss,
     :h_team_nickname,
     :h_team_streak_text,
     :h_team_score,
+    :h_team_tri_code,
     :h_team_url_city_and_name,
     :h_team_win,
     :is_end_of_period,
@@ -23,11 +27,13 @@ defmodule TheGame.NBAGame do
     :start_date_eastern,
     :v_team_conf,
     :v_team_conf_rank,
+    :v_team_id,
     :v_team_logo_svg,
     :v_team_loss,
     :v_team_nickname,
     :v_team_streak_text,
     :v_team_score,
+    :v_team_tri_code,
     :v_team_url_city_and_name,
     :v_team_win
   ]
@@ -56,6 +62,7 @@ defmodule TheGame.NBAGame do
     h_team_score = game.hTeam |> Map.get("score")
     v_team_score = game.vTeam |> Map.get("score")
     point_diff = get_point_diff(v_team_score, h_team_score)
+    game_status = determine_game_status(game, point_diff)
 
     period =
       game.period
@@ -78,14 +85,17 @@ defmodule TheGame.NBAGame do
 
     %TheGame.NBAGame{}
     |> Map.put(:clock, should_be_nil?(game.clock))
-    |> Map.put(:excitement_level, determine_excitement_level(game, point_diff))
+    |> Map.put(:excitement_level, determine_excitement_level(game_status, period, point_diff))
+    |> Map.put(:game_status, game_status)
     |> Map.put(:h_team_conf, h_team_meta.confName)
     |> Map.put(:h_team_conf_rank, nthify(h_team_standings_meta.confRank))
+    |> Map.put(:h_team_id, h_team_id)
     |> Map.put(:h_team_logo_svg, get_team_logo_svg(h_team_id))
     |> Map.put(:h_team_loss, Map.get(game.hTeam, "loss"))
     |> Map.put(:h_team_nickname, h_team_meta.nickname)
     |> Map.put(:h_team_streak_text, Map.get(h_team_standings_meta.teamSitesOnly, "streakText"))
     |> Map.put(:h_team_score, h_team_score)
+    |> Map.put(:h_team_tri_code, Map.get(h_team_standings_meta.teamSitesOnly, "teamTricode"))
     |> Map.put(
       :h_team_url_city_and_name,
       h_team_meta.fullName
@@ -102,11 +112,13 @@ defmodule TheGame.NBAGame do
     |> Map.put(:start_date_eastern, game.startDateEastern)
     |> Map.put(:v_team_conf, v_team_meta.confName)
     |> Map.put(:v_team_conf_rank, nthify(v_team_standings_meta.confRank))
+    |> Map.put(:v_team_id, v_team_id)
     |> Map.put(:v_team_logo_svg, get_team_logo_svg(v_team_id))
     |> Map.put(:v_team_loss, Map.get(game.vTeam, "loss"))
     |> Map.put(:v_team_nickname, v_team_meta.nickname)
     |> Map.put(:v_team_streak_text, Map.get(v_team_standings_meta.teamSitesOnly, "streakText"))
     |> Map.put(:v_team_score, v_team_score)
+    |> Map.put(:v_team_tri_code, Map.get(v_team_standings_meta.teamSitesOnly, "teamTricode"))
     |> Map.put(
       :v_team_url_city_and_name,
       v_team_meta.fullName
@@ -124,16 +136,27 @@ defmodule TheGame.NBAGame do
     "https://cdn.nba.com/logos/nba/#{team_id}/primary/L/logo.svg"
   end
 
-  defp determine_excitement_level(game, point_diff) do
-    if game_is_completed(game, point_diff) do
-      excitement_level_face(Map.get(game, "period"), point_diff)
-    else
-      nil
-    end
+  defp determine_excitement_level(:completed, period, point_diff) do
+    excitement_level_face(period, point_diff)
   end
 
-  defp determine_excitement_level(_) do
+  defp determine_excitement_level(_game_status, _period, _point_diff) do
     nil
+  end
+
+  defp determine_game_status(%{statusNum: 1}, _point_dif), do: :upcoming
+  defp determine_game_status(%{statusNum: 2}, _point_diff), do: :live
+
+  defp determine_game_status(%{statusNum: 3}, _point_diff) do
+    :completed
+  end
+
+  defp determine_game_status(
+         %{period: %{"current" => 4, "isEndOfPeriod" => true}},
+         point_diff
+       )
+       when point_diff != 0 do
+    :completed
   end
 
   defp excitement_level_face(%{"current" => current}, _point_diff) when current > 4, do: "🤯🤯🤯"
@@ -143,24 +166,6 @@ defmodule TheGame.NBAGame do
     do: "😲😲"
 
   defp excitement_level_face(_period, point_diff) when point_diff >= 10, do: "🥱"
-
-  # statusNum that signifies a completed game
-  defp game_is_completed(game = %{"statusNum" => 3}, _point_diff) do
-    true
-  end
-
-  # In case where game is over but "statusNum" hasn't been updated yet.
-  defp game_is_completed(
-         game = %{"period" => %{"current" => 4, "isEndOfPeriod" => true}},
-         point_diff
-       )
-       when point_diff != 0 do
-    true
-  end
-
-  defp game_is_completed(_, _) do
-    false
-  end
 
   defp is_overtime?(period) do
     case period do

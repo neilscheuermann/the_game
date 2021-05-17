@@ -193,6 +193,7 @@ p {
 .standing-tile {
   display: flex;
   padding: 2px 0;
+  align-items: center;
 }
 .standing-tile:nth-child(7) {
   border-bottom: solid 1px black;
@@ -204,7 +205,6 @@ p {
 .standing-live-game-info {
   display: flex;
   font-size: 12px;
-  align-items: center;
   margin-left: 8px;
 }
 .standing-live-game-info > * {
@@ -236,6 +236,9 @@ p {
 .font-small {
   font-size: 10px;
 }
+.font-med-small {
+  font-size: 12px;
+}
 .font-med {
   font-size: 14px;
 }
@@ -247,6 +250,11 @@ p {
   padding-left: 20px;
   font-size: 10px;
 }
+
+.gray {
+  color: gray;
+}
+
 
 /* MOBILE STYLES */
 /* Small devices (575px and down) */

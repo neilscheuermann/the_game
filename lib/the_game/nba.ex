@@ -41,51 +41,30 @@ defmodule TheGame.NBA do
     league_teams_data = TheGame.NBADataService.fetch_team_data()
     league_standings_data = TheGame.NBADataService.fetch_team_standings_data()
 
-    live_games =
-      todays_games
-      |> Enum.filter(&is_live_game?/1)
-      |> format_games(league_teams_data, league_standings_data)
-
-    completed_games =
-      todays_games
-      |> Enum.filter(&is_completed_game?/1)
-      |> format_games(league_teams_data, league_standings_data)
-
-    upcoming_games =
-      todays_games
-      |> Enum.filter(&is_upcoming_game?/1)
-      |> format_games(league_teams_data, league_standings_data)
-
-    %{
-      live_games: live_games,
-      completed_games: completed_games,
-      upcoming_games: upcoming_games
-    }
+    todays_games
+    |> format_games(league_teams_data, league_standings_data)
 
     # # MOCKS
-    # %{
-    #   live_games:
-    #     [
-    #       TheGame.Seeds.live_game(),
-    #       TheGame.Seeds.live_game_end_of_3rd_period(),
-    #       TheGame.Seeds.live_game_at_halftime(),
-    #       TheGame.Seeds.live_game_overtime_double(),
-    #       TheGame.Seeds.live_game_end_of_4th_period()
-    #     ]
-    #     |> format_games(league_teams_data, league_standings_data),
-    #   completed_games:
-    #     [TheGame.Seeds.completed_game()] |> format_games(league_teams_data, league_standings_data),
-    #   upcoming_games:
-    #     [TheGame.Seeds.upcoming_game(), TheGame.Seeds.upcoming_game_on_espn()]
-    #     |> format_games(league_teams_data, league_standings_data)
-    # }
+    # [
+    #   TheGame.Seeds.live_game(),
+    #   TheGame.Seeds.live_game_end_of_3rd_period(),
+    #   TheGame.Seeds.live_game_at_halftime(),
+    #   TheGame.Seeds.live_game_overtime_double(),
+    #   TheGame.Seeds.live_game_end_of_4th_period(),
+    #   TheGame.Seeds.completed_game(),
+    #   TheGame.Seeds.upcoming_game()
+    # ]
+    # |> format_games(league_teams_data, league_standings_data)
   end
 
-  def conference_standings() do
+  def conference_standings(days_games) do
     conference_standings =
       case NBADataService.fetch_conference_standings_data() do
         {:ok, conference_standings} ->
-          TheGame.NBAStandingTile.format_standings(conference_standings)
+          # # MOCKS
+          # conference_standings = TheGame.LeagueConferenceStandingsMocks.conference_standings()
+
+          TheGame.NBAStandingTile.format_standings(conference_standings, days_games)
 
         # Will this cause the page to go blank for the 15 second interval,
         # until the next analysis runs? Better than crashing the app I guess,
@@ -95,15 +74,6 @@ defmodule TheGame.NBA do
           %{east: [], west: []}
       end
   end
-
-  defp is_upcoming_game?(%{"statusNum" => 1}), do: true
-  defp is_upcoming_game?(_), do: false
-
-  defp is_live_game?(%{"statusNum" => 2}), do: true
-  defp is_live_game?(_), do: false
-
-  defp is_completed_game?(%{"statusNum" => 3}), do: true
-  defp is_completed_game?(_), do: false
 
   defp format_games(games, league_teams_data, league_standings_data) do
     Enum.map(games, fn game ->

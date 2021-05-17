@@ -3,9 +3,11 @@ defmodule TheGameWeb.LiveGamesComponent do
 
   @spec render(any) :: Phoenix.LiveView.Rendered.t()
   def render(assigns) do
+    live_games = Enum.filter(assigns.days_games, fn x -> x.game_status == :live end)
+
     ~L"""
     <%# Live games %>
-    <%= for game <- @days_games.live_games do %>
+    <%= for game <- live_games do %>
       <div class="nba-game-tile">
         <div class="team-info">
           <div>

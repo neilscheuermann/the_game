@@ -3,9 +3,11 @@ defmodule TheGameWeb.UpcomingGamesComponent do
 
   @spec render(any) :: Phoenix.LiveView.Rendered.t()
   def render(assigns) do
+    upcoming_games = Enum.filter(assigns.days_games, fn x -> x.game_status == :upcoming end)
+
     ~L"""
     <%# Upcoming games %>
-    <%= for game <- @days_games.upcoming_games do %>
+    <%= for game <- upcoming_games do %>
       <div class="nba-game-tile">
         <div class="team-info">
           <div>

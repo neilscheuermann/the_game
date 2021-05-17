@@ -25,7 +25,7 @@ defmodule TheGameWeb.TheGameLive do
 
     days_games = TheGame.NBA.get_days_games()
 
-    standings = TheGame.NBA.conference_standings()
+    standings = TheGame.NBA.conference_standings(days_games)
 
     show_excitement_level = false
 

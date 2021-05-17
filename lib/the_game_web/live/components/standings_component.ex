@@ -11,6 +11,9 @@ defmodule TheGameWeb.StandingsComponent do
           <%= live_component(@socket, TheGameWeb.StandingTileComponent, team: team) %>
         <% end %>
       </div>
+
+      <br>
+
       <div class="west">
         <p class="font-lg">West</p>
         <%= for team <- @standings.west do %>
