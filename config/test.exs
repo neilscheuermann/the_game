@@ -6,7 +6,7 @@ use Mix.Config
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
 config :the_game, TheGame.Repo,
-  username: "neilscheuermann",
+  username: "postgres",
   password: "postgres",
   database: "the_game_test#{System.get_env("MIX_TEST_PARTITION")}",
   hostname: "localhost",

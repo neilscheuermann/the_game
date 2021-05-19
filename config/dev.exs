@@ -2,7 +2,7 @@ use Mix.Config
 
 # Configure your database
 config :the_game, TheGame.Repo,
-  username: "neilscheuermann",
+  username: "postgres",
   password: "postgres",
   database: "the_game_dev",
   hostname: "localhost",
