@@ -23,7 +23,7 @@ defmodule TheGameWeb.StandingTileComponent do
         <%= if game_status == :live do %>
         <div class="standing-live-game-info font-small">
           <p class="standing-amp">
-          <%= if @team.game_is_away do %>@ <%= else %>vs <% end %>
+          <%= if @team.game_is_away do %>@ <% else %>vs <% end %>
           </p>
           <p><%= @team.opponent_tri_code %></p>
           <p>|</p>
@@ -49,7 +49,7 @@ defmodule TheGameWeb.StandingTileComponent do
         <%= if game_status == :upcoming do %>
         <div class="standing-live-game-info font-small gray">
           <p class="standing-amp">
-          <%= if @team.game_is_away do %>@ <%= else %>vs <% end %>
+          <%= if @team.game_is_away do %>@ <% else %>vs <% end %>
           </p>
           <p><%= @team.opponent_tri_code %></p>
           <p><%= @team.associated_game.start_time_eastern %></p>
