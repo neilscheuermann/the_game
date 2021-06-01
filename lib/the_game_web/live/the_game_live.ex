@@ -5,9 +5,10 @@ defmodule TheGameWeb.TheGameLive do
     ~L"""
     <div class="container">
       <h2 class="heading">Today's Games</h2>
-      <%= live_component(@socket, TheGameWeb.LiveGamesComponent, days_games: @days_games, show_excitement_level: @show_excitement_level) %>
+      <%= live_component(@socket, TheGameWeb.LiveGamesComponent, days_games: @days_games, show_score: @show_score) %>
       <%= live_component(@socket, TheGameWeb.CompletedGamesComponent, days_games: @days_games, show_excitement_level: @show_excitement_level) %>
-      <%= live_component(@socket, TheGameWeb.UpcomingGamesComponent, days_games: @days_games, show_excitement_level: @show_excitement_level) %>
+      <%= live_component(@socket, TheGameWeb.UpcomingGamesComponent, days_games: @days_games) %>
+
       <br>
 
       <h3 class="heading">Standings</h3>
@@ -28,12 +29,14 @@ defmodule TheGameWeb.TheGameLive do
     standings = TheGame.NBA.conference_standings(days_games)
 
     show_excitement_level = false
+    show_score = false
 
     {:ok,
      assign(socket,
        days_games: days_games,
        standings: standings,
-       show_excitement_level: show_excitement_level
+       show_excitement_level: show_excitement_level,
+       show_score: show_score
      )}
   end
 
@@ -45,6 +48,17 @@ defmodule TheGameWeb.TheGameLive do
     {:reply, %{},
      assign(socket,
        show_excitement_level: !TheGame.Converter.convert!(show_excitement_level)
+     )}
+  end
+
+  def handle_event(
+        "toggle_score",
+        %{"show_score" => show_score},
+        socket
+      ) do
+    {:reply, %{},
+     assign(socket,
+       show_score: !TheGame.Converter.convert!(show_score)
      )}
   end
 

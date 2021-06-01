@@ -33,8 +33,11 @@ defmodule TheGameWeb.LiveGamesComponent do
               </div>
             </div>
           </div>
-          <div class="amp">
-            @
+          <div>
+            <div class="amp">@</div>
+            <a class="font-small" href="https://www.streameast.live/nba/<%= game.h_team_url_city_and_name %>-<%= game.v_team_url_city_and_name %>/" target="_blank">
+              watch
+            </a>
           </div>
           <div>
             <svg width="40" height="40">       
@@ -61,12 +64,8 @@ defmodule TheGameWeb.LiveGamesComponent do
           </div>
         </div>
         <div class="game-info">
-          <a class="font-small" href="https://www.streameast.live/nba/<%= game.h_team_url_city_and_name %>-<%= game.v_team_url_city_and_name %>/" target="_blank">
-            watch
-          </a>
 
           <div class="time-period-point-diff">
-            <p><span class="bold-light">± <%= game.point_diff %> </span><span class="font-small">(point diff)</span></p>
             <div class="time-period">
               <%= if game.is_end_of_period and !game.is_halftime do %>
               <p>End of</p>
@@ -74,7 +73,6 @@ defmodule TheGameWeb.LiveGamesComponent do
 
               <%= if game.clock do %>
               <p><%= game.clock %></p>
-              <p>-</p>
               <% end %>
 
               <%= if game.is_halftime do %>
@@ -83,6 +81,19 @@ defmodule TheGameWeb.LiveGamesComponent do
               <p><%= game.period %></p>
               <% end %>
             </div>
+
+
+            <%= if @show_score do %>
+              <div class="visible-score bold-light" phx-click="toggle_score" phx-value-show_score="<%= @show_score %>">
+                <p> <%= game.v_team_score %> </p>
+                <p> <%= game.h_team_score %> </p>
+              </div>
+            <% else %>
+              <div class="point-differential" phx-click="toggle_score" phx-value-show_score="<%= @show_score %>">
+                <p class="bold-light">± <%= game.point_diff %></p>
+                <p class="font-small">(point diff)</p>
+              </div>
+            <% end %>
 
           </div>
         </div>

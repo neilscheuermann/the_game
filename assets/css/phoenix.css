@@ -141,8 +141,8 @@ p {
 
 .time-period-point-diff {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  text-align: center;
+  height: 100%;
 }
 .time-period-point-diff > * {
   margin: 8px;
@@ -151,13 +151,23 @@ p {
 
 .time-period {
   display: flex;
+  flex-direction: column;
+  justify-content:center;
   font-size: 14px;
 }
-.time-period > * {
-  margin-left: 6px;
+
+.point-differential {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 8px;
 }
-.time-period > :first-child {
-  margin-left: 0;
+
+.visible-score {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 16px 8px;
 }
 
 .team-info {

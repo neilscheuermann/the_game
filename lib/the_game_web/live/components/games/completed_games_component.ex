@@ -56,8 +56,7 @@ defmodule TheGameWeb.CompletedGamesComponent do
           <a class="font-small" href="https://www.youtube.com/results?search_query=<%= game.v_team_nickname %>+at+<%= game.h_team_nickname %>+<%= game.start_date_eastern %>" target="_blank">
             recap
           </a>
-
-          <div class="time-period-point-diff">
+          <div>
             <div class="toggle-excitement-button" phx-click="toggle_excitement_level" phx-value-show_excitement_level="<%= @show_excitement_level %>">
               <%= if @show_excitement_level do %>
                 <p><span><%= game.excitement_level%></span></p>
