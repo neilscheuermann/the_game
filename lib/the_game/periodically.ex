@@ -22,7 +22,7 @@ defmodule TheGame.Periodically do
   end
 
   defp do_recurring_thing() do
-    # TheGame.NBA.find_and_broadcast_games()
+    TheGame.NBA.find_and_broadcast_games()
   end
 
   defp schedule_work() do

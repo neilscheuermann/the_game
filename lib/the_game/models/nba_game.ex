@@ -7,6 +7,7 @@ defmodule TheGame.NBAGame do
     :excitement_level,
     # [:completed, :live, :upcoming]
     :game_status,
+    :game_id,
     :h_team_conf,
     :h_team_conf_rank,
     :h_team_id,
@@ -22,6 +23,7 @@ defmodule TheGame.NBAGame do
     :is_halftime,
     :national_broadcaster,
     :period,
+    :period_seconds_remaining,
     :point_diff,
     :start_time_eastern,
     :start_date_eastern,
@@ -83,10 +85,24 @@ defmodule TheGame.NBAGame do
         Map.get(national_broadcaster, "longName")
       end
 
+    h_team_url_city_and_name =
+      h_team_meta.fullName
+      |> lower_dash()
+      |> validate_url_city_and_name()
+
+    v_team_url_city_and_name =
+      v_team_meta.fullName
+      |> lower_dash()
+      |> validate_url_city_and_name()
+
+    live_streameast_link =
+      "https://www.streameast.live/nba/#{h_team_url_city_and_name}-#{v_team_url_city_and_name}/"
+
     %TheGame.NBAGame{}
     |> Map.put(:clock, should_be_nil?(game.clock))
     |> Map.put(:excitement_level, determine_excitement_level(game_status, period, point_diff))
     |> Map.put(:game_status, game_status)
+    |> Map.put(:game_id, game.gameId)
     |> Map.put(:h_team_conf, h_team_meta.confName)
     |> Map.put(:h_team_conf_rank, nthify(h_team_standings_meta.confRank))
     |> Map.put(:h_team_id, h_team_id)
@@ -96,17 +112,14 @@ defmodule TheGame.NBAGame do
     |> Map.put(:h_team_streak_text, Map.get(h_team_standings_meta.teamSitesOnly, "streakText"))
     |> Map.put(:h_team_score, h_team_score)
     |> Map.put(:h_team_tri_code, Map.get(h_team_standings_meta.teamSitesOnly, "teamTricode"))
-    |> Map.put(
-      :h_team_url_city_and_name,
-      h_team_meta.fullName
-      |> lower_dash()
-      |> validate_url_city_and_name()
-    )
+    |> Map.put(:h_team_url_city_and_name, h_team_url_city_and_name)
     |> Map.put(:h_team_win, Map.get(game.hTeam, "win"))
     |> Map.put(:is_end_of_period, Map.get(game.period, "isEndOfPeriod"))
     |> Map.put(:is_halftime, Map.get(game.period, "isHalftime"))
+    |> Map.put(:live_streameast_link, live_streameast_link)
     |> Map.put(:national_broadcaster, national_broadcaster)
     |> Map.put(:period, period)
+    |> Map.put(:period_seconds_remaining, convert_to_seconds(game.clock))
     |> Map.put(:point_diff, point_diff)
     |> Map.put(:start_time_eastern, game.startTimeEastern)
     |> Map.put(:start_date_eastern, game.startDateEastern)
@@ -119,17 +132,41 @@ defmodule TheGame.NBAGame do
     |> Map.put(:v_team_streak_text, Map.get(v_team_standings_meta.teamSitesOnly, "streakText"))
     |> Map.put(:v_team_score, v_team_score)
     |> Map.put(:v_team_tri_code, Map.get(v_team_standings_meta.teamSitesOnly, "teamTricode"))
-    |> Map.put(
-      :v_team_url_city_and_name,
-      v_team_meta.fullName
-      |> lower_dash()
-      |> validate_url_city_and_name()
-    )
+    |> Map.put(:v_team_url_city_and_name, v_team_url_city_and_name)
     |> Map.put(:v_team_win, Map.get(game.vTeam, "win"))
   end
 
   defp convert_to_atom_map(string_map) do
     for {key, val} <- string_map, into: %{}, do: {String.to_atom(key), val}
+  end
+
+  defp convert_to_seconds("") do
+    nil
+  end
+
+  defp convert_to_seconds(clock) do
+    float_seconds_remaining =
+      if clock =~ "." do
+        to_float(clock)
+      end
+
+    if clock =~ ":" do
+      [minutes, seconds] = String.split(clock, ":")
+
+      total_seconds = to_int(minutes) * 60 + to_int(seconds)
+    else
+      float_seconds_remaining
+    end
+  end
+
+  defp to_float(str_float) do
+    {int, _} = Float.parse(str_float)
+    int
+  end
+
+  defp to_int(str_int) do
+    {int, _} = Integer.parse(str_int)
+    int
   end
 
   def get_team_logo_svg(team_id) do

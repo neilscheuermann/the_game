@@ -50,7 +50,8 @@ defmodule TheGame.MixProject do
       {:cowboy, "< 2.8.0", override: true},
       {:httpoison, "~> 1.8"},
       {:timex, "~> 3.6"},
-      {:tesla, "~> 1.4.1"}
+      {:tesla, "~> 1.4.1"},
+      {:cachex, "~> 3.3"}
     ]
   end
 

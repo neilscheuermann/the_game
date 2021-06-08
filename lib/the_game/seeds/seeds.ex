@@ -162,7 +162,7 @@ defmodule TheGame.Seeds do
         "stateAbbr" => "AZ"
       },
       "attendance" => "5110",
-      "clock" => "41.1",
+      "clock" => "3:41",
       "extendedStatusNum" => 0,
       "gameDuration" => %{"hours" => "1", "minutes" => "39"},
       "gameId" => "0022000783",
@@ -194,7 +194,7 @@ defmodule TheGame.Seeds do
       "leagueName" => "standard",
       "nugget" => %{"text" => ""},
       "period" => %{
-        "current" => 3,
+        "current" => 4,
         "isEndOfPeriod" => false,
         "isHalftime" => false,
         "maxRegular" => 4,

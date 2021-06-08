@@ -14,6 +14,19 @@ defmodule TheGame.TwilioApi do
      }"}
   ]
 
+  def send_sms(body, to_number) do
+    account_sid = System.get_env("TWILIO_ACCOUNT_SID")
+    url = "/2010-04-01/Accounts/#{account_sid}/Messages.json"
+
+    req_body = %{
+      "Body" => body,
+      "From" => System.get_env("TWILIO_TRIAL_NUMBER"),
+      "To" => to_number
+    }
+
+    post(url, req_body)
+  end
+
   def send_test_sms_to_self do
     account_sid = System.get_env("TWILIO_ACCOUNT_SID")
     url = "/2010-04-01/Accounts/#{account_sid}/Messages.json"

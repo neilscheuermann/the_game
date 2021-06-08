@@ -22,6 +22,11 @@ defmodule TheGame.NBA do
   def find_and_broadcast_games() do
     days_games = get_days_games()
 
+    days_games
+    |> Enum.filter(&(&1.game_status == :live))
+    |> TheGame.Notifications.send_live_game_notifications(:nba)
+
+    # IO.inspect("BROADCASTING GAMES>>>")
     broadcast_change(:fifteen_second_update, days_games)
   end
 
@@ -58,21 +63,20 @@ defmodule TheGame.NBA do
   end
 
   def conference_standings(days_games) do
-    conference_standings =
-      case NBADataService.fetch_conference_standings_data() do
-        {:ok, conference_standings} ->
-          # # MOCKS
-          # conference_standings = TheGame.LeagueConferenceStandingsMocks.conference_standings()
+    case NBADataService.fetch_conference_standings_data() do
+      {:ok, conference_standings} ->
+        # # MOCKS
+        # conference_standings = TheGame.LeagueConferenceStandingsMocks.conference_standings()
 
-          TheGame.NBAStandingTile.format_standings(conference_standings, days_games)
+        TheGame.NBAStandingTile.format_standings(conference_standings, days_games)
 
-        # Will this cause the page to go blank for the 15 second interval,
-        # until the next analysis runs? Better than crashing the app I guess,
-        # but I would like it to retry when it fails, instead of only returning
-        # no data.
-        {:error, _} ->
-          %{east: [], west: []}
-      end
+      # Will this cause the page to go blank for the 15 second interval,
+      # until the next analysis runs? Better than crashing the app I guess,
+      # but I would like it to retry when it fails, instead of only returning
+      # no data.
+      {:error, _} ->
+        %{east: [], west: []}
+    end
   end
 
   defp format_games(games, league_teams_data, league_standings_data) do
