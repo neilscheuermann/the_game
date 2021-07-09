@@ -18,7 +18,7 @@ defmodule TheGame.Application do
       # Start a worker by calling: TheGame.Worker.start_link(arg)
       # {TheGame.Worker, arg}
       # Start a GenServer to fetch NBA data every 15 seconds.
-      TheGame.Periodically,
+      TheGame.NBALiveGameAnalysis,
       {Cachex, name: :game_notifications_cache}
     ]
 

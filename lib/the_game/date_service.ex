@@ -1,11 +1,11 @@
 defmodule TheGame.DateService do
-  def get_current_date() do
-    {:ok, date_time} = DateTime.utc_now()
+  def get_current_formatted_date() do
+    date_time = DateTime.utc_now()
 
     format_date(date_time)
   end
 
-  def get_current_date(time_zone) do
+  def get_current_formatted_date(time_zone) do
     {:ok, date_time} =
       DateTime.utc_now()
       |> DateTime.shift_zone(time_zone)

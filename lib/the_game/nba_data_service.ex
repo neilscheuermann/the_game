@@ -8,6 +8,21 @@ defmodule TheGame.NBADataService do
 
   require Logger
 
+  def fetch_calendar() do
+    case HTTPoison.get("http://data.nba.net/prod/v1/calendar.json") do
+      {:ok, %HTTPoison.Response{body: body, status_code: 200}} ->
+        {:ok, Jason.decode!(body)}
+
+      {:ok, %HTTPoison.Response{status_code: 404}} ->
+        Logger.error("&fetch_current_scoreboard_for_day/1, Page not found")
+        {:error, :not_found}
+
+      {:error, %HTTPoison.Error{reason: reason}} ->
+        Logger.error("&fetch_current_scoreboard_for_day/1, error reason: #{reason}")
+        {:error, reason}
+    end
+  end
+
   def fetch_current_scoreboard_for_day(date) do
     case HTTPoison.get("http://data.nba.net/prod/v1/#{date}/scoreboard.json") do
       {:ok, %HTTPoison.Response{body: body, status_code: 200}} ->

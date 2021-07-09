@@ -26,12 +26,13 @@ defmodule TheGame.NBA do
     |> Enum.filter(&(&1.game_status == :live))
     |> TheGame.Notifications.send_live_game_notifications(:nba)
 
-    # IO.inspect("BROADCASTING GAMES>>>")
     broadcast_change(:fifteen_second_update, days_games)
+
+    days_games
   end
 
   def get_days_games() do
-    todays_date = DateService.get_current_date("America/Los_Angeles")
+    todays_date = DateService.get_current_formatted_date("America/Los_Angeles")
 
     todays_games =
       case NBADataService.fetch_current_scoreboard_for_day(todays_date) do
