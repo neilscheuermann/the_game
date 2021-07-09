@@ -5,6 +5,8 @@ defmodule TheGame.NBALiveGameAnalysis do
   close game notifications need to be sent out.
   """
 
+  require Logger
+
   use GenServer
 
   alias TheGame.NBALiveGameAnalysis
@@ -105,6 +107,12 @@ defmodule TheGame.NBALiveGameAnalysis do
   defp schedule_next_live_game_analysis_start() do
     # 1. Get next game start datetime
     first_game_start_time_utc = find_next_first_game_start_time_utc()
+
+    Logger.info(
+      "Next live analysis will start at #{
+        DateTime.shift_zone!(first_game_start_time_utc, "America/New_York")
+      } >>>>"
+    )
 
     # 2. Get milliseconds comparing to current datetime
     start_delay_ms = calculate_start_delay(Timex.now(), first_game_start_time_utc)
