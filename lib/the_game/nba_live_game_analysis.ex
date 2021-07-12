@@ -1,19 +1,21 @@
 defmodule TheGame.NBALiveGameAnalysis do
   @moduledoc """
-  Checks NBA scores every 15 seconds during game time, sends 
-  out socket updates with live games, and determines if 
-  close game notifications need to be sent out.
+  Schedules when to start the 15 second intervals for live game
+  analysis.  
   """
 
   require Logger
 
   use GenServer
 
-  alias TheGame.NBALiveGameAnalysis
-  alias TheGame.NBA
-  alias TheGame.NBADataService
+  alias TheGame.{
+    DateService,
+    NBA,
+    NBADataService,
+    NBALiveGameAnalysis
+  }
 
-  @fifteen_second_interval 15 * 1000
+  @fifteen_second_interval_ms 15 * 1000
 
   def start_link(_) do
     GenServer.start_link(__MODULE__, %{})
@@ -21,7 +23,7 @@ defmodule TheGame.NBALiveGameAnalysis do
 
   @impl true
   def init(state) do
-    IO.inspect("Gen server started>>>")
+    IO.inspect("Gen server started>>>>")
 
     schedule_next_live_game_analysis_start()
     {:ok, state}
@@ -32,7 +34,7 @@ defmodule TheGame.NBALiveGameAnalysis do
     current_games = NBA.find_and_broadcast_games()
 
     if games_are_still_live?(current_games) do
-      Process.send_after(self(), :analyze, @fifteen_second_interval)
+      Process.send_after(self(), :analyze, @fifteen_second_interval_ms)
     else
       schedule_next_live_game_analysis_start()
     end
@@ -67,19 +69,14 @@ defmodule TheGame.NBALiveGameAnalysis do
   end
 
   defp find_next_first_game_start_time_utc() do
-    {:ok, endpoints} = NBADataService.fetch_nba_endpoints()
-
-    current_date =
-      endpoints
-      |> Map.get("links")
-      |> Map.get("currentDate")
+    current_date_yyyymmdd = DateService.get_current_formatted_date()
 
     {:ok, calendar} = NBADataService.fetch_calendar()
 
     # returns as formatted "20210708"
-    next_date_with_games = next_date_with_games(calendar, current_date)
+    next_date_with_games_yyyymmdd = find_next_date_with_games(calendar, current_date_yyyymmdd)
 
-    first_game = find_first_game_on_date(next_date_with_games)
+    first_game = find_first_game_on_date(next_date_with_games_yyyymmdd)
 
     {:ok, first_game_start_time_utc, _} =
       first_game
@@ -94,13 +91,13 @@ defmodule TheGame.NBALiveGameAnalysis do
     |> Enum.any?(fn game -> Map.get(game, "statusNum") == 2 end)
   end
 
-  defp next_date_with_games(calendar, date) do
-    date_has_games_scheduled = Map.get(calendar, date) > 0
+  defp find_next_date_with_games(calendar, formatted_date) do
+    date_has_games_scheduled = Map.get(calendar, formatted_date) > 0
 
     if date_has_games_scheduled do
-      date
+      formatted_date
     else
-      next_date_with_games(calendar, shift_by_a_day(date))
+      find_next_date_with_games(calendar, shift_by_a_day(formatted_date))
     end
   end
 
@@ -108,14 +105,14 @@ defmodule TheGame.NBALiveGameAnalysis do
     # 1. Get next game start datetime
     first_game_start_time_utc = find_next_first_game_start_time_utc()
 
+    # 2. Get milliseconds comparing to current datetime
+    start_delay_ms = calculate_start_delay(Timex.now(), first_game_start_time_utc)
+
     Logger.info(
-      "Next live analysis will start at #{
+      "Next live analysis will start after #{start_delay_ms / 60 / 60 / 1000} hours, at #{
         DateTime.shift_zone!(first_game_start_time_utc, "America/New_York")
       } >>>>"
     )
-
-    # 2. Get milliseconds comparing to current datetime
-    start_delay_ms = calculate_start_delay(Timex.now(), first_game_start_time_utc)
 
     # 3. Set interval for first analyze
     Process.send_after(self(), :analyze, start_delay_ms)

@@ -19,6 +19,10 @@ defmodule TheGame.NBA do
     Phoenix.PubSub.broadcast(TheGame.PubSub, @topic, {event, data})
   end
 
+  @doc """
+  Checks scores, determines if close game notifications need to 
+  be sent out, and sends out socket updates with live game data.
+  """
   def find_and_broadcast_games() do
     days_games = get_days_games()
 
