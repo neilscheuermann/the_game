@@ -23,7 +23,7 @@ defmodule TheGame.NBALiveGameAnalysis do
 
   @impl true
   def init(state) do
-    IO.inspect("Gen server started>>>>")
+    Logger.info("Gen server started>>>>")
 
     schedule_next_live_game_analysis_start()
     {:ok, state}
@@ -62,28 +62,30 @@ defmodule TheGame.NBALiveGameAnalysis do
       |> String.replace("-", "")
   end
 
-  defp find_first_game_on_date(formatted_date) do
+  defp first_game_on_date(formatted_date) do
     {:ok, games} = NBADataService.fetch_current_scoreboard_for_day(formatted_date)
 
     List.first(games)
   end
 
   defp find_next_first_game_start_time_utc() do
-    current_date_yyyymmdd = DateService.get_current_formatted_date()
+    # Temp: just return the start date if we're in the off season.
+    if false do
+      {:ok, season_2022_start_date_utc, _} = DateTime.from_iso8601("2021-10-19 23:00:00Z")
+      season_2022_start_date_utc
+    else
+      current_date_yyyymmdd = DateService.get_current_formatted_date()
+      {:ok, calendar} = NBADataService.fetch_calendar()
 
-    {:ok, calendar} = NBADataService.fetch_calendar()
+      {:ok, first_game_start_time_utc, _} =
+        calendar
+        |> next_date_with_games(current_date_yyyymmdd)
+        |> first_game_on_date()
+        |> Map.get("startTimeUTC")
+        |> DateTime.from_iso8601()
 
-    # returns as formatted "20210708"
-    next_date_with_games_yyyymmdd = find_next_date_with_games(calendar, current_date_yyyymmdd)
-
-    first_game = find_first_game_on_date(next_date_with_games_yyyymmdd)
-
-    {:ok, first_game_start_time_utc, _} =
-      first_game
-      |> Map.get("startTimeUTC")
-      |> DateTime.from_iso8601()
-
-    first_game_start_time_utc
+      first_game_start_time_utc
+    end
   end
 
   defp games_are_still_live?(current_games) do
@@ -91,14 +93,24 @@ defmodule TheGame.NBALiveGameAnalysis do
     |> Enum.any?(fn game -> Map.get(game, "statusNum") == 2 end)
   end
 
-  defp find_next_date_with_games(calendar, formatted_date) do
+  # returns as formatted "20210708"
+  defp next_date_with_games(calendar, formatted_date) do
     date_has_games_scheduled = Map.get(calendar, formatted_date) > 0
 
     if date_has_games_scheduled do
       formatted_date
     else
-      find_next_date_with_games(calendar, shift_by_a_day(formatted_date))
+      next_date_with_games(calendar, shift_by_a_day(formatted_date))
     end
+  end
+
+  defp in_the_offseason?() do
+    current_utc = Timex.now()
+    {:ok, season_2021_end_date_utc, _} = DateTime.from_iso8601("2021-07-20 00:00:00Z")
+    {:ok, season_2022_start_date_utc, _} = DateTime.from_iso8601("2021-10-19 23:00:00Z")
+
+    DateTime.compare(current_utc, season_2021_end_date_utc) == :gt &&
+      DateTime.compare(current_utc, season_2022_start_date_utc) == :lt
   end
 
   defp schedule_next_live_game_analysis_start() do
