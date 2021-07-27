@@ -62,12 +62,6 @@ defmodule TheGame.NBALiveGameAnalysis do
       |> String.replace("-", "")
   end
 
-  defp first_game_on_date(formatted_date) do
-    {:ok, games} = NBADataService.fetch_current_scoreboard_for_day(formatted_date)
-
-    List.first(games)
-  end
-
   defp find_next_first_game_start_time_utc() do
     # Temp: just return the start date if we're in the off season.
     if false do
@@ -88,9 +82,24 @@ defmodule TheGame.NBALiveGameAnalysis do
     end
   end
 
+  defp first_game_on_date(formatted_date) do
+    {:ok, games} = NBADataService.fetch_current_scoreboard_for_day(formatted_date)
+
+    List.first(games)
+  end
+
   defp games_are_still_live?(current_games) do
     current_games
     |> Enum.any?(fn game -> Map.get(game, "statusNum") == 2 end)
+  end
+
+  defp in_the_offseason?() do
+    current_utc = Timex.now()
+    {:ok, season_2021_end_date_utc, _} = DateTime.from_iso8601("2021-07-20 00:00:00Z")
+    {:ok, season_2022_start_date_utc, _} = DateTime.from_iso8601("2021-10-19 23:00:00Z")
+
+    DateTime.compare(current_utc, season_2021_end_date_utc) == :gt &&
+      DateTime.compare(current_utc, season_2022_start_date_utc) == :lt
   end
 
   # returns as formatted "20210708"
@@ -102,15 +111,6 @@ defmodule TheGame.NBALiveGameAnalysis do
     else
       next_date_with_games(calendar, shift_by_a_day(formatted_date))
     end
-  end
-
-  defp in_the_offseason?() do
-    current_utc = Timex.now()
-    {:ok, season_2021_end_date_utc, _} = DateTime.from_iso8601("2021-07-20 00:00:00Z")
-    {:ok, season_2022_start_date_utc, _} = DateTime.from_iso8601("2021-10-19 23:00:00Z")
-
-    DateTime.compare(current_utc, season_2021_end_date_utc) == :gt &&
-      DateTime.compare(current_utc, season_2022_start_date_utc) == :lt
   end
 
   defp schedule_next_live_game_analysis_start() do
